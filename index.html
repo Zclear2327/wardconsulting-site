@@ -56,6 +56,9 @@ section{padding-block:72px;border-top:1px solid var(--rule)}
 .btn.ghost{color:var(--ink);border:1px solid var(--rule)}
 
 /* the run log: the signature element */
+.bio{margin:8px 0 0}
+.bio video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:4px;background:var(--log)}
+.bio figcaption{font-size:14px;color:var(--muted);margin-top:10px}
 .log{background:var(--log);color:var(--log-ink);font:400 13.5px/1.8 var(--mono);border-radius:4px;padding:18px 18px 16px;overflow-x:auto}
 .log .hd{display:flex;justify-content:space-between;color:var(--log-dim);border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:10px;margin-bottom:10px;gap:12px}
 .log .row{white-space:nowrap}
@@ -264,6 +267,16 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
       <a class="cta-sm" href="#contact">Book a call</a>
     </nav>
   </header>
+
+  <figure class="bio">
+    <video controls playsinline preload="metadata" poster="media/chris-ward-bio-poster.jpg" width="1920" height="1080" aria-label="Chris Ward, founder of Ward Consulting AI, in a 21-second introduction">
+      <source src="media/chris-ward-bio.mp4" type="video/mp4">
+      <source src="media/chris-ward-bio.webm" type="video/webm">
+      <track kind="captions" src="media/chris-ward-bio.vtt" srclang="en" label="English">
+      <a href="media/chris-ward-bio.mp4">Watch Chris Ward's 21-second introduction</a>.
+    </video>
+    <figcaption>AI-generated video of Chris Ward. The script is his own, and he approved the video.</figcaption>
+  </figure>
 
   <div class="hero">
     <div>
