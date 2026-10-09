@@ -57,9 +57,13 @@ section{padding-block:72px;border-top:1px solid var(--rule)}
 
 /* the run log: the signature element */
 .bio{margin:8px 0 0}
+.bio .vw{position:relative}
 .bio video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:4px;background:var(--log)}
-.bio video.tall{display:none;aspect-ratio:9/16;width:auto;max-width:100%;max-height:80svh;margin-inline:auto}
-@media (max-width:600px){.bio video.wide{display:none}.bio video.tall{display:block}}
+.bio .vw.tall{display:none;width:min(100%,calc(80svh * 9 / 16));margin-inline:auto}
+.bio .vw.tall video{aspect-ratio:9/16}
+@media (max-width:600px){.bio .vw.wide{display:none}.bio .vw.tall{display:block}}
+.bio .snd{position:absolute;top:12px;right:12px;font:600 14px/1 var(--body);color:#fff;background:rgba(16,35,29,.88);border:1px solid rgba(255,255,255,.4);padding:11px 14px;border-radius:2px;cursor:pointer}
+.bio .snd:hover{background:rgba(16,35,29,1)}
 .bio figcaption{font-size:14px;color:var(--muted);margin-top:10px}
 .bio.film{margin:0 0 48px}
 .log{background:var(--log);color:var(--log-ink);font:400 13.5px/1.8 var(--mono);border-radius:4px;padding:18px 18px 16px;overflow-x:auto}
@@ -272,18 +276,24 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
   </header>
 
   <figure class="bio">
-    <video class="wide" controls playsinline preload="metadata" poster="media/chris-ward-bio-poster.jpg" width="1920" height="1080" aria-label="Chris Ward, founder of Ward Consulting AI, in a 21-second introduction">
-      <source src="media/chris-ward-bio.mp4" type="video/mp4">
-      <source src="media/chris-ward-bio.webm" type="video/webm">
-      <track kind="captions" src="media/chris-ward-bio.vtt" srclang="en" label="English">
-      <a href="media/chris-ward-bio.mp4">Watch Chris Ward's 21-second introduction</a>.
-    </video>
-    <video class="tall" controls playsinline preload="none" poster="media/chris-ward-bio-phone-poster.jpg" width="1080" height="1920" aria-label="Chris Ward, founder of Ward Consulting AI, in a 21-second introduction">
-      <source src="media/chris-ward-bio-phone.mp4" type="video/mp4">
-      <source src="media/chris-ward-bio-phone.webm" type="video/webm">
-      <track kind="captions" src="media/chris-ward-bio.vtt" srclang="en" label="English">
-      <a href="media/chris-ward-bio-phone.mp4">Watch Chris Ward's 21-second introduction</a>.
-    </video>
+    <div class="vw wide">
+      <video controls muted playsinline preload="metadata" poster="media/chris-ward-bio-poster.jpg" width="1920" height="1080" aria-label="Chris Ward, founder of Ward Consulting AI, in a 21-second introduction">
+        <source src="media/chris-ward-bio.mp4" type="video/mp4">
+        <source src="media/chris-ward-bio.webm" type="video/webm">
+        <track kind="captions" src="media/chris-ward-bio.vtt" srclang="en" label="English">
+        <a href="media/chris-ward-bio.mp4">Watch Chris Ward's 21-second introduction</a>.
+      </video>
+      <button class="snd" type="button" hidden>Play with sound</button>
+    </div>
+    <div class="vw tall">
+      <video controls muted playsinline preload="none" poster="media/chris-ward-bio-phone-poster.jpg" width="1080" height="1920" aria-label="Chris Ward, founder of Ward Consulting AI, in a 21-second introduction">
+        <source src="media/chris-ward-bio-phone.mp4" type="video/mp4">
+        <source src="media/chris-ward-bio-phone.webm" type="video/webm">
+        <track kind="captions" src="media/chris-ward-bio.vtt" srclang="en" label="English">
+        <a href="media/chris-ward-bio-phone.mp4">Watch Chris Ward's 21-second introduction</a>.
+      </video>
+      <button class="snd" type="button" hidden>Play with sound</button>
+    </div>
     <figcaption>AI-generated video of Chris Ward. The script is his own, and he approved the video.</figcaption>
   </figure>
 
@@ -360,12 +370,15 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
 
   <section id="services">
     <figure class="bio film">
-      <video controls playsinline preload="none" poster="media/agent-hq-poster.jpg" width="1280" height="720" aria-label="A one-minute tour of the Z-Clear agent fleet: 31 agents in six divisions">
-        <source src="media/agent-hq.mp4" type="video/mp4">
-        <source src="media/agent-hq.webm" type="video/webm">
-        <track kind="captions" src="media/agent-hq.vtt" srclang="en" label="English">
-        <a href="media/agent-hq.mp4">Watch the one-minute tour of the Z-Clear agent fleet</a>.
-      </video>
+      <div class="vw" data-caps>
+        <video controls muted playsinline preload="none" poster="media/agent-hq-poster.jpg" width="1280" height="720" aria-label="A one-minute tour of the Z-Clear agent fleet: 31 agents in six divisions">
+          <source src="media/agent-hq.mp4" type="video/mp4">
+          <source src="media/agent-hq.webm" type="video/webm">
+          <track kind="captions" src="media/agent-hq.vtt" srclang="en" label="English">
+          <a href="media/agent-hq.mp4">Watch the one-minute tour of the Z-Clear agent fleet</a>.
+        </video>
+        <button class="snd" type="button" hidden>Play with sound</button>
+      </div>
       <figcaption>The fleet we run at Z-Clear every day: 31 agents in six divisions, drawn from the fleet's own records on October 9, 2026. The voice is AI-generated.</figcaption>
     </figure>
 
@@ -610,6 +623,29 @@ document.getElementById('copy').addEventListener('click', function () {
   var select = function () { var r = document.createRange(); r.selectNodeContents(a); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected, press Ctrl+C'; };
   if (navigator.clipboard) { navigator.clipboard.writeText(a.textContent).then(done, select); } else { select(); }
 });
+// Videos start muted when half of one is on screen: browsers only allow autoplay without sound.
+// "Play with sound" restarts it from the beginning with sound. Nothing autoplays for visitors who
+// ask their system for reduced motion, and a video someone paused stays paused.
+(function () {
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.bio .vw').forEach(function (w) {
+    var v = w.querySelector('video'), b = w.querySelector('.snd'), caps = w.hasAttribute('data-caps');
+    var stopped = false, ours = false;
+    var showCaps = function (on) { for (var i = 0; i < v.textTracks.length; i++) v.textTracks[i].mode = on ? 'showing' : 'hidden'; };
+    v.muted = true; b.hidden = false;
+    if (caps) showCaps(true);
+    b.addEventListener('click', function () { v.muted = false; v.currentTime = 0; v.play(); });
+    v.addEventListener('volumechange', function () { if (!v.muted) { b.hidden = true; if (caps) showCaps(false); } });
+    v.addEventListener('pause', function () { if (!ours && !v.ended) stopped = true; ours = false; });
+    if (reduce || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.intersectionRatio >= 0.5) { if (v.paused && !v.ended && !stopped && v.offsetParent) v.play().catch(function () {}); }
+        else if (!v.paused && v.muted) { ours = true; v.pause(); }
+      });
+    }, { threshold: [0, 0.5] }).observe(v);
+  });
+})();
 </script>
 </body>
 </html>
