@@ -138,6 +138,13 @@ section{padding-block:72px;border-top:1px solid var(--rule)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:1000px){.courses{grid-template-columns:repeat(2,1fr)}.course:nth-child(2){border-right:0}.course:nth-child(-n+2){border-bottom:1px solid var(--rule)}}
 @media (max-width:600px){.courses{grid-template-columns:1fr}.course{border-right:0;border-bottom:1px solid var(--rule)}.course:last-child{border-bottom:0}}
+/* about */
+.photos{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:16px;margin-top:40px;align-items:start}
+.ph{margin:0}
+.ph img{display:block;width:100%;height:auto;border-radius:4px;background:var(--av-bg)}
+.ph figcaption{font-size:15px;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.photos{grid-template-columns:1fr 1fr 1fr}.ph-wide{grid-column:1/-1}}
+@media (max-width:480px){.photos{grid-template-columns:1fr}}
 /* roster */
 .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0;margin-top:36px;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
 .agent{padding:14px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--panel)}
@@ -247,6 +254,7 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
       <a href="#training">Training</a>
       <a href="#services">Agents</a>
       <a href="#proof">Results</a>
+      <a href="#about">About</a>
       <a class="cta-sm" href="#contact">Book a call</a>
     </nav>
   </header>
@@ -503,6 +511,31 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
       <li><b>Act</b><span>Only passing work goes live, inside set spending limits.</span></li>
       <li><b>Log</b><span>Every run is written down, so you can see exactly what happened.</span></li>
     </ol>
+  </section>
+
+  <section id="about">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Who you work with</p>
+        <h2>Hi, I'm Chris Ward.</h2>
+      </div>
+      <p>I'm a father of four and I've spent more than a decade building businesses. I ran a health and fitness business for 10 years. Today I own Z-Clear Anti-Fog in Ogden, Utah, a salon, a snow removal business and a brick-and-mortar store, and I work on AI full time, for my own companies and for clients. Everything we teach, we run first at Z-Clear: the numbers above come straight from its books, Shopify and Amazon.</p>
+    </div>
+    <div class="photos">
+      <figure class="ph ph-wide">
+        <img src="images/chris-harbor-sunset.jpg" width="1400" height="1050" loading="lazy" alt="Chris Ward and family in sun hats on a harbor wall at sunset.">
+      </figure>
+      <figure class="ph">
+        <img src="images/ward-family-snow.jpg" width="731" height="1024" loading="lazy" alt="Chris Ward with his family, standing in the snow among pine trees.">
+      </figure>
+      <figure class="ph">
+        <img src="images/chris-walmart-open-call.jpg" width="1050" height="1400" loading="lazy" alt="Chris Ward holding an &quot;I got a deal&quot; card in front of the Walmart Open Call backdrop.">
+        <figcaption>At Walmart Open Call, holding the &ldquo;I got a deal&rdquo; card.</figcaption>
+      </figure>
+      <figure class="ph">
+        <img src="images/chris-garden.jpg" width="1050" height="1400" loading="lazy" alt="Chris Ward and family standing together in a garden under green trees.">
+      </figure>
+    </div>
   </section>
 
   <section id="contact">
