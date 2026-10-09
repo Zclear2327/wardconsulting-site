@@ -118,6 +118,26 @@ section{padding-block:72px;border-top:1px solid var(--rule)}
 .receipt p{margin:0;font-size:17px}
 .receipt .by{display:block;font:700 12.5px/1.4 var(--body);color:var(--brass);letter-spacing:.05em;text-transform:uppercase;margin-top:8px}
 
+/* nav */
+.nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.nav a{font:500 15px/1 var(--body);color:var(--ink);text-decoration:none;padding:15px 0}
+.nav a:hover{color:var(--accent)}
+.nav a.cta-sm{padding:15px 14px}
+@media (max-width:640px){.nav a:not(.cta-sm){display:none}}
+/* training */
+.courses{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border:1px solid var(--rule);background:var(--panel)}
+.course{padding:26px 22px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:12px}
+.course:last-child{border-right:0}
+.course h3{font-size:24px}
+.course .price{font-family:var(--display);font-weight:700;font-size:40px;line-height:1;margin:4px 0 0;font-variant-numeric:tabular-nums;color:var(--accent)}
+.course .price small{display:block;font:700 13px/1.4 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.course .course-who{margin:0;font-size:16px;color:var(--muted)}
+.course ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:16px}
+.course-cta{margin-top:auto;text-align:center;line-height:1.2}
+.btn.ghost.course-cta{border-color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:1000px){.courses{grid-template-columns:repeat(2,1fr)}.course:nth-child(2){border-right:0}.course:nth-child(-n+2){border-bottom:1px solid var(--rule)}}
+@media (max-width:600px){.courses{grid-template-columns:1fr}.course{border-right:0;border-bottom:1px solid var(--rule)}.course:last-child{border-bottom:0}}
 /* roster */
 .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0;margin-top:36px;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
 .agent{padding:14px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--panel)}
@@ -189,7 +209,7 @@ section{padding-block:72px;border-top:1px solid var(--rule)}
 .contact h2{font-size:clamp(34px,5vw,60px)}
 .mail{background:var(--panel);border:1px solid var(--rule);padding:24px;display:flex;flex-direction:column;gap:12px}
 .mail code{font:500 18px/1.3 var(--mono);user-select:all;word-break:break-all}
-.mail button{align-self:flex-start;font:600 14px/1 var(--body);background:var(--ink);color:var(--paper);border:0;padding:12px 16px;border-radius:2px;cursor:pointer}
+.mail button{align-self:flex-start;font:600 14px/1 var(--body);background:var(--ink);color:var(--paper);border:0;padding:15px 16px;border-radius:2px;cursor:pointer}
 footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 @media (max-width:900px){
@@ -223,7 +243,12 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
 
   <header class="top">
     <div class="mark">Ward Consulting <span>AI</span></div>
-    <a class="cta-sm" href="#contact">Book a call</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#training">Training</a>
+      <a href="#services">Agents</a>
+      <a href="#proof">Results</a>
+      <a class="cta-sm" href="#contact">Book a call</a>
+    </nav>
   </header>
 
   <div class="hero">
@@ -233,6 +258,7 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
       <p class="lede">Ward Consulting AI designs, deploys and manages fleets of AI agents for businesses of every size. Each agent owns one job, checks its own work before it acts, and writes down what it did. We built it first for our own company, Z-Clear. Now we build it for yours.</p>
       <div class="btns">
         <a class="btn primary" href="#contact">Start with a free assessment</a>
+        <a class="btn ghost" href="#training">Learn Claude with us</a>
         <a class="btn ghost" href="#proof">See the Z-Clear numbers</a>
       </div>
     </div>
@@ -242,12 +268,57 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
       <div class="row"><span class="t">06:02</span> <span class="who">Iris</span>  email-triage    inbox sorted       <span class="ok">9.0/10</span></div>
       <div class="row"><span class="t">06:15</span> <span class="who">Ada</span>   amazon-ads      bids + budgets     <span class="ok">ROAS 2.48x</span></div>
       <div class="row"><span class="t">06:40</span> <span class="who">Tess</span>  website-title   title published    <span class="ok">9.4/10</span></div>
-      <div class="row"><span class="t">07:05</span> <span class="who">Edi</span>   sps-edi         POs in, invoices   <span class="ok">done</span></div>
       <div class="row"><span class="t">07:30</span> <span class="who">Bell</span>  fleet-rollup    status board       <span class="ok">posted</span></div>
       <div class="row"><span class="t">08:00</span> <span class="who">Vic</span>   ceo-agent       daily brief        <span class="ok">sent</span></div>
       <div class="cap">Agent names and jobs are real. Times illustrate a typical morning.</div>
     </div>
   </div>
+
+  <section id="training">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Training</p>
+        <h2>Learn Claude from a business that runs on it.</h2>
+      </div>
+      <p>Four steps, from your first conversation with Claude to a fleet of agents doing real work. Each one is taught from how Z-Clear actually runs, not from slides. Start wherever you are.</p>
+    </div>
+
+    <div class="courses">
+      <article class="course">
+        <p class="who-for">Self-paced · about 90 minutes</p>
+        <h3>Start with Claude</h3>
+        <p class="price">$99</p>
+        <p class="course-who">For anyone who has never used Claude, or tried it once and gave up.</p>
+        <ul><li>Set up Claude on your computer and phone</li><li>Write requests that get useful answers</li><li>Upload a document or photo and check the result</li><li>Five ready-to-use requests for a small business</li><li>A one-page checklist to keep</li></ul>
+        <a class="btn primary course-cta" href="mailto:hello@wardconsulting.ai?subject=Start%20with%20Claude%20(%2499)">Buy<span class="sr"> Start with Claude</span></a>
+      </article>
+      <article class="course">
+        <p class="who-for">Live · one 2-hour session</p>
+        <h3>Claude at Work</h3>
+        <p class="price">$999.99</p>
+        <p class="course-who">For owners and managers ready to build Claude into their daily work.</p>
+        <ul><li>Turn three of your own recurring tasks into reusable requests</li><li>Build a project for your business with its documents and instructions</li><li>Check the answer against the source, every time</li><li>Leave with a one-page playbook for you and your team</li></ul>
+        <a class="btn ghost course-cta" href="mailto:hello@wardconsulting.ai?subject=Claude%20at%20Work%20(2-hour%2C%20%24999.99)">Book<span class="sr"> Claude at Work</span></a>
+      </article>
+      <article class="course">
+        <p class="who-for">Live · 2 days</p>
+        <h3>Build Your Swarm</h3>
+        <p class="price">$5,000<small>per person</small></p>
+        <p class="course-who">For operators who want a team of Claude agents doing recurring work on their own schedule.</p>
+        <ul><li>Design your swarm: two or more agents, each with one job in your business</li><li>Build one with Cowork and your own tools, one with Claude Code</li><li>Add a check, break it on purpose, and watch it catch the problem</li><li>Put an agent on a schedule and read what it did without you</li></ul>
+        <a class="btn ghost course-cta" href="mailto:hello@wardconsulting.ai?subject=Build%20Your%20Swarm%20(2-day%2C%20%245%2C000%20per%20person)">Book<span class="sr"> Build Your Swarm</span></a>
+      </article>
+      <article class="course">
+        <p class="who-for">Live · 5 days</p>
+        <h3>Run an Agent Fleet</h3>
+        <p class="price">$10,000<small>per person</small></p>
+        <p class="course-who">For owners ready to run several agents across the business, the way Z-Clear does.</p>
+        <ul><li>A charter for every agent: its job, what it may touch, what it must never do</li><li>Run logs and scorecards so you can see what each agent did</li><li>A person approves anything that spends money or cannot be undone</li><li>Your fleet launched on its schedules by day five</li></ul>
+        <a class="btn ghost course-cta" href="mailto:hello@wardconsulting.ai?subject=Run%20an%20Agent%20Fleet%20(5-day%2C%20%2410%2C000%20per%20person)">Book<span class="sr"> Run an Agent Fleet</span></a>
+      </article>
+    </div>
+    <p class="note">You need your own Claude account. The free plan covers the $99 course; the 2-day and 5-day courses need a paid Claude plan. Prices for the 2-day and 5-day courses are per person. Each button opens an email to hello@wardconsulting.ai, and we reply with dates, location and how to pay. Ward Consulting AI is not affiliated with Anthropic.</p>
+  </section>
 
   <section id="services">
     <div class="sec-head">
@@ -276,7 +347,6 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
         <h3>A fleet across every channel</h3>
         <ul>
           <li>Amazon, Walmart and Shopify listings and ad bidding</li>
-          <li>EDI purchase orders and invoices with wholesale buyers</li>
           <li>Payroll prep and landed product cost</li>
           <li>SEO content and weekly site health checks</li>
           <li>A daily brief that tells leadership what changed</li>
@@ -389,7 +459,6 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
       <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="11" y="7" width="18" height="26" rx="2"/><path d="M15 13h10M15 18h10M15 23h4"/><path class="hl a-draw" pathLength="1" d="M21 26l2 2 4-5"/></svg></div><div><b>Quinn</b><span>QuickBooks categorization</span></div></div>
       <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-flip"><circle cx="20" cy="20" r="11"/><path class="hl" d="M20 13v14M23.5 16c-1-1.5-6-2-6 .8s6 2 6 4.9-5 2.5-7 .6"/></g></svg></div><div><b>Penny</b><span>Landed product cost</span></div></div>
       <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="13"/><path class="a-spin" d="M20 20V11"/><path class="hl a-spin-slow" d="M20 20h6"/></svg></div><div><b>Sal</b><span>Payroll hours and pay periods</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-right"><path d="M8 15h19M23 11l4 4-4 4"/></g><g class="a-left"><path class="hl" d="M32 25H13M17 21l-4 4 4 4"/></g></svg></div><div><b>Edi</b><span>Wholesale EDI: purchase orders in, invoices out</span></div></div>
       <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="13" width="24" height="17" rx="3"/><path d="M15 13l2-4h6l2 4"/><circle cx="20" cy="21.5" r="5"/><circle class="fb a-flash" cx="28" cy="17" r="1.6"/></svg></div><div><b>Pip</b><span>Weekly social media check-in</span></div></div>
       <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="a-twinkle" d="M20 7l3.7 7.6 8.3 1.2-6 5.9 1.4 8.3-7.4-3.9-7.4 3.9 1.4-8.3-6-5.9 8.3-1.2z"/></svg></div><div><b>Vera</b><span>Reviews, replies and review requests</span></div></div>
       <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="hl a-flame" d="M18 29l2 5 2-5"/><g class="a-bob"><path class="bg" d="M20 6c5 4 6 12 3 19h-6c-3-7-2-15 3-19z"/><circle cx="20" cy="15" r="2"/><path d="M17 24l-4 4v-6M23 24l4 4v-6"/></g></svg></div><div><b>Jules</b><span>Traffic and launch for two local businesses</span></div></div>
