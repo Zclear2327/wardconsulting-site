@@ -141,6 +141,12 @@ section{padding-block:72px;border-top:1px solid var(--rule)}
 /* about */
 .photos{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:16px;margin-top:40px;align-items:start}
 .ph{margin:0}
+.biz{list-style:none;margin:32px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.biz a{display:block;padding:16px 18px 16px 0;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink);min-height:44px}
+.biz b{display:block;font-family:var(--display);font-size:20px;font-weight:600;color:var(--accent)}
+.biz span{display:block;font-size:15.5px;color:var(--muted);margin-top:4px}
+.biz a:hover b{text-decoration:underline}
+@media (max-width:640px){.biz{grid-template-columns:1fr}}
 .ph img{display:block;width:100%;height:auto;border-radius:4px;background:var(--av-bg)}
 .ph figcaption{font-size:15px;color:var(--muted);margin-top:10px}
 @media (max-width:900px){.photos{grid-template-columns:1fr 1fr 1fr}.ph-wide{grid-column:1/-1}}
@@ -519,8 +525,13 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
         <p class="eyebrow">Who you work with</p>
         <h2>Hi, I'm Chris Ward.</h2>
       </div>
-      <p>I'm a father of four and I've spent more than a decade building businesses. I ran a health and fitness business for 10 years. Today I own Z-Clear Anti-Fog in Ogden, Utah, a salon, a snow removal business and a brick-and-mortar store, and I work on AI full time, for my own companies and for clients. Everything we teach, we run first at Z-Clear: the numbers above come straight from its books, Shopify and Amazon.</p>
+      <p>I'm a father of four and I've spent more than a decade building businesses. I ran a health and fitness business for 10 years. Today I own Z-Clear Anti-Fog in Ogden, Utah, the GoodLife Nailz salon, the GoodLife Gemz crystal shop and a snow removal business, and I work on AI full time, for my own companies and for clients. Everything we teach, we run first at Z-Clear: the numbers above come straight from its books, Shopify and Amazon.</p>
     </div>
+    <ul class="biz" aria-label="Chris Ward's businesses">
+      <li><a href="https://z-clear.com/" rel="noopener"><b>Z-Clear Anti-Fog</b><span>Anti-fog and lens care, made in Ogden</span></a></li>
+      <li><a href="https://goodlifenailz.com/" rel="noopener"><b>GoodLife Nailz</b><span>Nail salon in North Ogden</span></a></li>
+      <li><a href="https://goodlifegemz.com/" rel="noopener"><b>GoodLife Gemz</b><span>Crystal shop in North Ogden</span></a></li>
+    </ul>
     <div class="photos">
       <figure class="ph ph-wide">
         <img src="images/chris-harbor-sunset.jpg" width="1400" height="1050" loading="lazy" alt="Chris Ward and family in sun hats on a harbor wall at sunset.">
