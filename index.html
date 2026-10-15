@@ -3,8 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ward Consulting AI</title>
-<meta name="description" content="Ward Consulting AI builds and runs fleets of AI agents that do real work inside small, medium and large businesses. Proven first on Z-Clear.">
+<title>AI and Claude Training for Business Owners | Ward Consulting AI</title>
+<meta name="description" content="New to AI? Ward Consulting AI teaches business owners Claude, sets it up for you, and builds AI helpers that take repetitive work off your plate.">
+<link rel="canonical" href="https://wardconsulting.ai/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wardconsulting.ai/">
+<meta property="og:title" content="More freedom for business owners, with AI doing the busywork">
+<meta property="og:description" content="Curious about AI but don't know where to start? Claude training, setup and AI helpers for business owners.">
+<meta property="og:image" content="https://wardconsulting.ai/media/chris-ward-bio-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"ProfessionalService","@id":"https://wardconsulting.ai/#org","name":"Ward Consulting AI","url":"https://wardconsulting.ai/","email":"hello@wardconsulting.ai","description":"AI and Claude training, setup, and AI helpers for business owners.","areaServed":"US","address":{"@type":"PostalAddress","addressLocality":"Ogden","addressRegion":"UT","addressCountry":"US"},"founder":{"@type":"Person","name":"Chris Ward"}},
+ {"@type":"Course","name":"Start with Claude","description":"Self-paced, about 90 minutes. Set up Claude, learn to ask it for useful work, and leave with five ready-to-use requests for your business.","provider":{"@id":"https://wardconsulting.ai/#org"},"offers":{"@type":"Offer","price":"99","priceCurrency":"USD","category":"Paid"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT90M"}},
+ {"@type":"Course","name":"Start Up","description":"Live on Zoom, one 2-hour group session. Turn three of your own weekly tasks into Claude requests you reuse.","provider":{"@id":"https://wardconsulting.ai/#org"},"offers":{"@type":"Offer","price":"249","priceCurrency":"USD","category":"Paid"},"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT2H"}}
+]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -259,6 +273,14 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
   .log .row:nth-child(7){animation-delay:.5s}
   @keyframes in{from{opacity:.25;transform:translateY(3px)}to{opacity:1;transform:none}}
 }
+/* 2026-10-15 simplified page */
+.hero.solo{grid-template-columns:1fr}
+.hero.solo .lede{max-width:40em}
+.courses.three{grid-template-columns:repeat(3,1fr)}
+.loop.three{grid-template-columns:repeat(3,1fr)}
+.bio.film{margin-top:40px}
+@media (max-width:900px){.courses.three{grid-template-columns:1fr}}
+@media (max-width:640px){.loop.three{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -267,9 +289,8 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
   <header class="top">
     <div class="mark">Ward Consulting <span>AI</span></div>
     <nav class="nav" aria-label="Sections">
-      <a href="#training">Training</a>
-      <a href="#services">Agents</a>
-      <a href="#proof">Results</a>
+      <a href="#start">Where to start</a>
+      <a href="#how">How it works</a>
       <a href="#about">About</a>
       <a class="cta-sm" href="#contact">Book a call</a>
     </nav>
@@ -297,78 +318,79 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
     <figcaption>AI-generated video of Chris Ward. The script is his own, and he approved the video.</figcaption>
   </figure>
 
-  <div class="hero">
+  <div class="hero solo">
     <div>
-      <p class="eyebrow">AI agents that run the work, not the demo</p>
-      <h1>We build AI staff that <em>show up every morning</em> and do the job.</h1>
-      <p class="lede">Ward Consulting AI designs, deploys and manages fleets of AI agents for businesses of every size. Each agent owns one job, checks its own work before it acts, and writes down what it did. We built it first for our own company, Z-Clear. Now we build it for yours.</p>
+      <p class="eyebrow">AI for business owners</p>
+      <h1><em>More freedom</em> for business owners, with AI doing the busywork.</h1>
+      <p class="lede">If you've been curious about AI but don't know where to start, that's where we come in. We set up Claude for your business, show you how to use it, and build AI helpers that take the repetitive work off your plate, so your time goes to the work you actually want to do.</p>
       <div class="btns">
-        <a class="btn primary" href="#contact">Start with a free assessment</a>
-        <a class="btn ghost" href="#training">Learn Claude with us</a>
-        <a class="btn ghost" href="#proof">See the Z-Clear numbers</a>
+        <a class="btn primary" href="#contact">Book a free call</a>
+        <a class="btn ghost" href="start/">Not sure where to start? Answer a few questions</a>
       </div>
-    </div>
-
-    <div class="log" aria-label="Sample of the Z-Clear agent run log">
-      <div class="hd"><span>zclear / runs</span><span>635 runs logged</span></div>
-      <div class="row"><span class="t">06:02</span> <span class="who">Iris</span>  email-triage    inbox sorted       <span class="ok">9.0/10</span></div>
-      <div class="row"><span class="t">06:15</span> <span class="who">Ada</span>   amazon-ads      bids + budgets     <span class="ok">ROAS 2.48x</span></div>
-      <div class="row"><span class="t">06:40</span> <span class="who">Tess</span>  website-title   title published    <span class="ok">9.4/10</span></div>
-      <div class="row"><span class="t">07:30</span> <span class="who">Bell</span>  fleet-rollup    status board       <span class="ok">posted</span></div>
-      <div class="row"><span class="t">08:00</span> <span class="who">Vic</span>   ceo-agent       daily brief        <span class="ok">sent</span></div>
-      <div class="cap">Agent names and jobs are real. Times illustrate a typical morning.</div>
     </div>
   </div>
 
-  <section id="training">
+  <section id="start">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Training</p>
-        <h2>Learn Claude from a business that runs on it.</h2>
+        <p class="eyebrow">Claude training and setup</p>
+        <h2>Start wherever you are.</h2>
       </div>
-      <p>Four steps, from your first conversation with Claude to a fleet of agents doing real work. Each one is taught from how Z-Clear actually runs, not from slides. Start wherever you are.</p>
+      <p>Most owners we talk to have heard AI can help but have no idea where to begin. Pick the step that fits you today.</p>
     </div>
 
-    <div class="courses">
+    <div class="courses three">
       <article class="course">
-        <p class="who-for">Self-paced · about 90 minutes</p>
+        <p class="who-for">Never used AI</p>
         <h3>Start with Claude</h3>
         <p class="price">$99</p>
-        <p class="course-who">For anyone who has never used Claude, or tried it once and gave up.</p>
-        <ul><li>Set up Claude on your computer and phone</li><li>Write requests that get useful answers</li><li>Upload a document or photo and check the result</li><li>Five ready-to-use requests for a small business</li><li>A one-page checklist to keep</li></ul>
+        <p class="course-who">Self-paced, about 90 minutes. Set up Claude, learn to ask it for useful work, and leave with five ready-to-use requests for your business.</p>
         <a class="btn primary course-cta" href="mailto:hello@wardconsulting.ai?subject=Start%20with%20Claude%20(%2499)">Buy<span class="sr"> Start with Claude</span></a>
       </article>
       <article class="course">
-        <p class="who-for">Live on Zoom · one 2-hour group session</p>
+        <p class="who-for">Tried it, want it to stick</p>
         <h3>Start Up</h3>
         <p class="price">$249</p>
-        <p class="next">Next session: Thursday, October 15, 6:00 pm Mountain · 12 seats</p>
-        <p class="course-who">For owners and managers ready to build Claude into their daily work.</p>
-        <p class="course-who">Full refund up to 48 hours before the session. After that, your seat moves to the next session.</p>
-        <ul><li>Turn three of your own recurring tasks into reusable requests</li><li>Build a project for your business with its documents and instructions</li><li>Check the answer against the source, every time</li><li>Leave with a one-page playbook for you and your team</li></ul>
-        <a class="btn ghost course-cta" href="mailto:hello@wardconsulting.ai?subject=Start%20Up%3A%20Thu%20Oct%2015%2C%206pm%20MT%20(Zoom%2C%20%24249)">Book<span class="sr"> Start Up</span></a>
+        <p class="course-who">Live on Zoom, one 2-hour group session. Turn three of your own weekly tasks into requests you reuse, with a one-page playbook for your team.</p>
+        <a class="btn ghost course-cta" href="mailto:hello@wardconsulting.ai?subject=Start%20Up%20(Zoom%2C%20%24249)">Book<span class="sr"> Start Up</span></a>
       </article>
       <article class="course">
-        <p class="who-for">In person or online · 2 days</p>
-        <h3>Build Your Swarm</h3>
-        <p class="price">$4,999<small>per person</small></p>
-        <p class="course-who">For operators who want a team of Claude agents doing recurring work on their own schedule.</p>
-        <ul><li>Design your swarm: two or more agents, each with one job in your business</li><li>Build one with Cowork and your own tools, one with Claude Code</li><li>Add a check, break it on purpose, and watch it catch the problem</li><li>Put an agent on a schedule and read what it did without you</li></ul>
-        <a class="btn ghost course-cta" href="mailto:hello@wardconsulting.ai?subject=Build%20Your%20Swarm%20(2-day%2C%20%244%2C999%20per%20person)%20-%20in%20person%20or%20online%3F">Book<span class="sr"> Build Your Swarm</span></a>
-      </article>
-      <article class="course">
-        <p class="who-for">In-person retreat · 5 days</p>
-        <h3>Run an Agent Fleet</h3>
-        <p class="price">$9,999<small>per person</small></p>
-        <p class="course-who">For owners ready to run several agents across the business, the way Z-Clear does. Five days at a house or cabin we rent for the group, building your fleet alongside other owners.</p>
-        <ul><li>Your stay at the retreat house is included</li><li>A charter for every agent: its job, what it may touch, what it must never do</li><li>Run logs and scorecards so you can see what each agent did</li><li>A person approves anything that spends money or cannot be undone</li><li>Your fleet launched on its schedules by day five</li></ul>
-        <a class="btn ghost course-cta" href="mailto:hello@wardconsulting.ai?subject=Run%20an%20Agent%20Fleet%20(5-day%20retreat%2C%20%249%2C999%20per%20person)">Book<span class="sr"> Run an Agent Fleet</span></a>
+        <p class="who-for">Ready to hand work off</p>
+        <h3>We build it for you</h3>
+        <p class="price">Free<small>first call</small></p>
+        <p class="course-who">Tell us what eats your week. We set up AI helpers that take it over, and anything that spends money waits for your yes.</p>
+        <a class="btn ghost course-cta" href="#contact">Book a free call<span class="sr"> about having AI helpers built for you</span></a>
       </article>
     </div>
-    <p class="note">You need your own Claude account. The free plan covers the $99 course; the 2-day and 5-day courses need a paid Claude plan. Prices for the 2-day and 5-day courses are per person. Each button opens an email to hello@wardconsulting.ai, and we reply with dates, location and how to pay. Ward Consulting AI is not affiliated with Anthropic.</p>
+    <p class="note">Want to build your own team of AI agents? We also teach <a href="mailto:hello@wardconsulting.ai?subject=Build%20Your%20Swarm%20(2-day%2C%20%244%2C999%20per%20person)">Build Your Swarm</a> (2 days, $4,999 per person) and <a href="mailto:hello@wardconsulting.ai?subject=Run%20an%20Agent%20Fleet%20(5-day%20retreat%2C%20%249%2C999%20per%20person)">Run an Agent Fleet</a> (a 5-day retreat, $9,999 per person). Each link opens an email, and we reply with dates and how to pay. You need your own Claude account. Ward Consulting AI is not affiliated with Anthropic.</p>
   </section>
 
-  <section id="services">
+  <section id="freedom">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">What it gives you back</p>
+        <h2>We run our own company on it first.</h2>
+      </div>
+      <p>Z-Clear, our anti-fog company in Ogden, Utah, runs on AI helpers every day. Here is what two of them give back.</p>
+    </div>
+
+    <div class="features">
+    <div class="feature">
+      <div class="big">$2,000<small>/ month</small></div>
+      <div>
+        <p>saved on hotel rooms and rental cars. One AI helper shops every event trip and re-checks bookings before free cancellation runs out.</p>
+        <div class="src">Z-Clear event travel · monthly average</div>
+      </div>
+    </div>
+    <div class="feature ink">
+      <div class="big">1 hr<small>→ minutes</small></div>
+      <div>
+        <p>for the owner's inbox every morning. An AI helper reads it first and flags what needs a person. That is about seven hours back every week.</p>
+        <div class="src">Owner's morning inbox · before vs after</div>
+      </div>
+    </div>
+    </div>
+
     <figure class="bio film">
       <div class="vw wide" data-caps>
         <video controls muted playsinline preload="none" poster="media/agent-hq-poster.jpg" width="1280" height="720" aria-label="A one-minute tour of the Z-Clear agent fleet: 34 agents in seven divisions">
@@ -390,188 +412,20 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
       </div>
       <figcaption>The fleet we run at Z-Clear every day: 34 agents in seven divisions, drawn from the fleet's own records on October 14, 2026. The voice is AI-generated.</figcaption>
     </figure>
-
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">What we do</p>
-        <h2>One approach, sized to your business.</h2>
-      </div>
-      <p>Every engagement starts the same way: we find the repetitive work that eats your week, give each piece to a dedicated agent, and put a scorecard on it so you can see what it did.</p>
-    </div>
-
-    <div class="tiers">
-      <article class="tier">
-        <p class="who-for">SMALL · 1–25 people</p>
-        <h3>Your first AI hires</h3>
-        <ul>
-          <li>Inbox triage every morning: an hour of email cut to minutes</li>
-          <li>Review replies and review-request emails</li>
-          <li>Bookkeeping categorization and receipts</li>
-          <li>Local search, Google Business Profile and social posts</li>
-          <li>A simple website, built and kept current</li>
-        </ul>
-        <p class="fleet">Typical fleet: 3–5 agents</p>
-      </article>
-      <article class="tier">
-        <p class="who-for">MEDIUM · 25–250 people</p>
-        <h3>A fleet across every channel</h3>
-        <ul>
-          <li>Amazon, Walmart and Shopify listings and ad bidding</li>
-          <li>Payroll prep and landed product cost</li>
-          <li>SEO content and weekly site health checks</li>
-          <li>A daily brief that tells leadership what changed</li>
-        </ul>
-        <p class="fleet">Typical fleet: 8–20 agents</p>
-      </article>
-      <article class="tier">
-        <p class="who-for">LARGE · 250+ people</p>
-        <h3>AI operations with governance</h3>
-        <ul>
-          <li>A manager agent that assigns work and scores the fleet</li>
-          <li>An audit agent that finds overlap and ungraded work</li>
-          <li>Numbered change requests for every rule change</li>
-          <li>Cloud scheduling with no single laptop to fail</li>
-          <li>Full run history your auditors can read</li>
-        </ul>
-        <p class="fleet">Typical fleet: 20+ agents, per department</p>
-      </article>
-    </div>
-  </section>
-
-  <section id="proof">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">Case study · Z-Clear Anti-Fog, Ogden, Utah</p>
-        <h2>We run our own company on it first.</h2>
-      </div>
-      <p>Z-Clear makes anti-fog paste and sprays and sells through event booths, Amazon, Walmart, wholesale and its own website. Every figure below comes from Z-Clear's books, Shopify, Amazon Seller Central and the fleet's own run logs.</p>
-    </div>
-
-    <div class="features">
-    <div class="feature">
-      <div class="big">$2,000<small>/ month</small></div>
-      <div>
-        <p>saved on hotel rooms and rental cars by one agent. Remy shops every event trip, re-checks bookings before free cancellation runs out, and flags a cheaper option when one appears. That is about $24,000 a year from a single job.</p>
-        <div class="src">Z-Clear event travel · monthly average</div>
-      </div>
-    </div>
-    <div class="feature ink">
-      <div class="big">1 hr<small>→ minutes</small></div>
-      <div>
-        <p>for the owner's inbox every morning, seven days a week. Iris reads it first, sorts it and flags what needs a person, so the day starts on what matters. That is about seven hours back every week.</p>
-        <div class="src">Owner's morning inbox · before vs after</div>
-      </div>
-    </div>
-    </div>
-
-    <p class="row-label">The business the fleet runs</p>
-    <div class="stats">
-      <div class="stat"><div class="n">$479,244</div><div class="l">event booth revenue, January through August 2026</div><div class="src">P&amp;L · JAN–AUG 2026</div></div>
-      <div class="stat"><div class="n">~18,300</div><div class="l">units sold at booths in the same eight months, all made in house</div><div class="src">P&amp;L · JAN–AUG 2026</div></div>
-      <div class="stat"><div class="n">82.6%</div><div class="l">gross margin: $395,965 gross profit on that revenue</div><div class="src">P&amp;L · JAN–AUG 2026</div></div>
-      <div class="stat"><div class="n">5</div><div class="l">sales channels run with agents: event booths, Amazon, Walmart, wholesale and the website</div><div class="src">CHANNELS</div></div>
-    </div>
-    <p class="row-label">The website, May 1 &ndash; Sep 27, 2026 vs the same dates in 2025</p>
-    <div class="stats">
-      <div class="stat"><div class="n">32,438</div><div class="l">store visits, 3.1&times; the 10,396 from the same dates last year</div><div class="src">SHOPIFY &middot; SESSIONS</div></div>
-      <div class="stat"><div class="n">6.2&times;</div><div class="l">more visits in August: 12,431, up from 2,001 in August 2025</div><div class="src">SHOPIFY &middot; AUGUST</div></div>
-      <div class="stat"><div class="n">1,180</div><div class="l">website orders, from 1,119 first-time customers</div><div class="src">SHOPIFY &middot; ORDERS</div></div>
-      <div class="stat"><div class="n">+24%</div><div class="l">website net sales: $27,451, up from $22,227 last year</div><div class="src">SHOPIFY &middot; NET SALES</div></div>
-    </div>
-    <figure class="chart">
-      <figcaption id="chart-t"><span class="ct">Monthly store visits</span>
-        <span class="legend"><span class="key k25"></span>2025 <span class="key k26"></span>2026</span></figcaption>
-      <div class="chart-scroll"><svg viewBox="0 0 640 270" role="img" aria-labelledby="chart-t"><line class="axis" x1="52" x2="628" y1="226" y2="226"/><text class="tick" x="44" y="230" text-anchor="end">0</text><line class="grid" x1="52" x2="628" y1="149.8" y2="149.8"/><text class="tick" x="44" y="153.8" text-anchor="end">5k</text><line class="grid" x1="52" x2="628" y1="73.7" y2="73.7"/><text class="tick" x="44" y="77.7" text-anchor="end">10k</text><path class="b25" d="M74.6,226 V199.3 Q74.6,195.3 78.6,195.3 H104.6 Q108.6,195.3 108.6,199.3 V226 Z"><title>May 2025: 2,016 sessions</title></path><path class="b26" d="M110.6,226 V185.2 Q110.6,181.2 114.6,181.2 H140.6 Q144.6,181.2 144.6,185.2 V226 Z"><title>May 2026: 2,944 sessions</title></path><text class="vlab" x="127.6" y="173.2" text-anchor="middle">2,944</text><text class="tick" x="109.6" y="248" text-anchor="middle">May</text><path class="b25" d="M189.8,226 V202.1 Q189.8,198.1 193.8,198.1 H219.8 Q223.8,198.1 223.8,202.1 V226 Z"><title>Jun 2025: 1,830 sessions</title></path><path class="b26" d="M225.8,226 V176.9 Q225.8,172.9 229.8,172.9 H255.8 Q259.8,172.9 259.8,176.9 V226 Z"><title>Jun 2026: 3,485 sessions</title></path><text class="vlab" x="242.8" y="164.9" text-anchor="middle">3,485</text><text class="tick" x="224.8" y="248" text-anchor="middle">Jun</text><path class="b25" d="M305.0,226 V192.7 Q305.0,188.7 309.0,188.7 H335.0 Q339.0,188.7 339.0,192.7 V226 Z"><title>Jul 2025: 2,449 sessions</title></path><path class="b26" d="M341.0,226 V127.5 Q341.0,123.5 345.0,123.5 H371.0 Q375.0,123.5 375.0,127.5 V226 Z"><title>Jul 2026: 6,732 sessions</title></path><text class="vlab" x="358.0" y="115.5" text-anchor="middle">6,732</text><text class="tick" x="340.0" y="248" text-anchor="middle">Jul</text><path class="b25" d="M420.2,226 V199.5 Q420.2,195.5 424.2,195.5 H450.2 Q454.2,195.5 454.2,199.5 V226 Z"><title>Aug 2025: 2,001 sessions</title></path><path class="b26" d="M456.2,226 V40.7 Q456.2,36.7 460.2,36.7 H486.2 Q490.2,36.7 490.2,40.7 V226 Z"><title>Aug 2026: 12,431 sessions</title></path><text class="vlab" x="473.2" y="28.7" text-anchor="middle">12,431</text><text class="tick" x="455.2" y="248" text-anchor="middle">Aug</text><path class="b25" d="M535.4,226 V198.0 Q535.4,194.0 539.4,194.0 H565.4 Q569.4,194.0 569.4,198.0 V226 Z"><title>Sep 2025: 2,100 sessions</title></path><path class="b26" d="M571.4,226 V125.7 Q571.4,121.7 575.4,121.7 H601.4 Q605.4,121.7 605.4,125.7 V226 Z"><title>Sep 2026: 6,846 sessions</title></path><text class="vlab" x="588.4" y="113.7" text-anchor="middle">6,846</text><text class="tick" x="570.4" y="248" text-anchor="middle">Sep</text></svg></div>
-      <p class="chart-note">September counts both years through the 27th. Hover a bar for the exact number.</p>
-      <table class="sr-only"><caption>Monthly Shopify sessions</caption><thead><tr><th>Month</th><th>2025</th><th>2026</th></tr></thead><tbody><tr><th scope="row">May</th><td>2,016</td><td>2,944</td></tr><tr><th scope="row">Jun</th><td>1,830</td><td>3,485</td></tr><tr><th scope="row">Jul</th><td>2,449</td><td>6,732</td></tr><tr><th scope="row">Aug</th><td>2,001</td><td>12,431</td></tr><tr><th scope="row">Sep</th><td>2,100</td><td>6,846</td></tr></tbody></table>
-    </figure>
-
-    <p class="row-label">Amazon, May 1 &ndash; Sep 27, 2026 vs the same dates in 2025</p>
-    <div class="stats">
-      <div class="stat"><div class="n">$57,064</div><div class="l">Amazon sales, up 17% from $48,734 last year</div><div class="src">SELLER CENTRAL &middot; SALES</div></div>
-      <div class="stat"><div class="n">4,538</div><div class="l">Amazon orders, up 17% from 3,884</div><div class="src">SELLER CENTRAL &middot; ORDERS</div></div>
-      <div class="stat"><div class="n">5,026</div><div class="l">units shipped to Amazon customers</div><div class="src">SELLER CENTRAL &middot; UNITS</div></div>
-      <div class="stat"><div class="n">+72%</div><div class="l">Amazon sales in June and July: $27,158, up from $15,794</div><div class="src">SELLER CENTRAL &middot; JUN&ndash;JUL</div></div>
-    </div>
-
-    <p class="row-label">What the agents did</p>
-    <div class="stats three">
-      <div class="stat"><div class="n">34</div><div class="l">AI agents in seven divisions, each with one named job</div><div class="src">FLEET ROSTER &middot; OCT 15</div></div>
-      <div class="stat"><div class="n">1,245</div><div class="l">entries the agents wrote in their run logs since July 9, 2026</div><div class="src">RUN LOGS &middot; JUL 9 &ndash; OCT 15</div></div>
-      <div class="stat"><div class="n">212</div><div class="l">numbered change requests that improved how the fleet works</div><div class="src">CR-001 → CR-212</div></div>
-      <div class="stat"><div class="n">47 → 34</div><div class="l">loose one-off AI tasks at the start, standing agents today</div><div class="src">FLEET HQ</div></div>
-      <div class="stat"><div class="n">4.50x</div><div class="l">return on Amazon ad spend: $583.50 in ad-attributed sales on $129.69, October 3&ndash;9</div><div class="src">AMAZON ADS API</div></div>
-      <div class="stat"><div class="n">304</div><div class="l">Amazon Account Health Rating, with zero open issues in every category, October 12</div><div class="src">AMAZON ACCOUNT HEALTH</div></div>
-    </div>
-    <p class="note">Sales and website figures as of September 27, 2026, from Z-Clear's books, Shopify and Amazon Seller Central. Agent figures as of October 15, 2026, from the fleet's charters, run logs and change requests, the Amazon Ads API and Seller Central. Measured results, not projections.</p>
-  </section>
-
-  <section id="roster">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">The Z-Clear fleet</p>
-        <h2>Meet the staff.</h2>
-      </div>
-      <p>Each agent has a name, a charter and a scorecard. This is the actual roster running Z-Clear today, across its two fleets. Yours will be built around your jobs.</p>
-    </div>
-    <div class="roster">
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="13"/><path d="M20 5v3M20 32v3M5 20h3M32 20h3"/><path class="fb a-sway" d="M20 10l3 10-3 10-3-10z"/></svg></div><div><b>Vic</b><span>CEO agent. Decides where money and effort go</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 7v3"/><g class="a-ring"><path d="M12 27h16l-2-3v-7a6 6 0 0 0-12 0v7z"/><path class="hl" d="M18 30a2 2 0 0 0 4 0"/></g></svg></div><div><b>Bell</b><span>Refreshes the status board, pages on red</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 7l11 4v8c0 7-5 12-11 14-6-2-11-7-11-14v-8z"/><path class="hl a-draw" pathLength="1" d="M15 20l4 4 7-8"/></svg></div><div><b>Marshall</b><span>Fleet audit. Finds overlap and ungraded work</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 31h24"/><rect class="a-bar" x="11" y="18" width="4" height="13"/><rect class="a-bar d2" x="18" y="13" width="4" height="18"/><rect class="hl a-bar d3" x="25" y="8" width="4" height="23"/></svg></div><div><b>Ada</b><span>Amazon ad bids, budgets and search terms</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-bob"><path d="M9 15l11-6 11 6v12l-11 6-11-6z"/><path d="M9 15l11 6 11-6M20 21v12"/><path class="hl" d="M14.5 12l11 6"/></g></svg></div><div><b>Mack</b><span>Amazon listing and account upkeep</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-swing"><path d="M10 10h10l12 12-10 10-12-12z"/><circle class="hl" cx="15" cy="15" r="2"/></g></svg></div><div><b>Wally</b><span>Walmart listing titles</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 12h16M9 18h22M9 24h11"/><path class="hl a-blink" d="M24 20v9"/></svg></div><div><b>Tess</b><span>Website titles and meta descriptions</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="a-draw" pathLength="1" d="M8 31h16"/><g class="a-write"><path class="hl" d="M22 27l9-9-3-3-9 9-1 4z"/></g></svg></div><div><b>Sage</b><span>SEO articles and on-site copy</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="hl a-draw" pathLength="1" d="M5 21h7l3-7 4 14 3-9 2 2h11"/></svg></div><div><b>Doc</b><span>Weekly website health check</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-scan"><circle cx="17" cy="17" r="7"/><path class="hl" d="M22 22l7 7"/></g></svg></div><div><b>Bix</b><span>Bing ads</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-drop"><rect class="hl" x="13" y="7" width="14" height="11" rx="1"/></g><rect class="bg" x="8" y="15" width="24" height="16" rx="2"/><path d="M8 17l12 8 12-8"/></svg></div><div><b>Iris</b><span>Email triage every morning: an hour of inbox cut to minutes</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="11" y="7" width="18" height="26" rx="2"/><path d="M15 13h10M15 18h10M15 23h4"/><path class="hl a-draw" pathLength="1" d="M21 26l2 2 4-5"/></svg></div><div><b>Quinn</b><span>QuickBooks categorization</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-flip"><circle cx="20" cy="20" r="11"/><path class="hl" d="M20 13v14M23.5 16c-1-1.5-6-2-6 .8s6 2 6 4.9-5 2.5-7 .6"/></g></svg></div><div><b>Penny</b><span>Landed product cost</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="13"/><path class="a-spin" d="M20 20V11"/><path class="hl a-spin-slow" d="M20 20h6"/></svg></div><div><b>Sal</b><span>Payroll hours and pay periods</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="13" width="24" height="17" rx="3"/><path d="M15 13l2-4h6l2 4"/><circle cx="20" cy="21.5" r="5"/><circle class="fb a-flash" cx="28" cy="17" r="1.6"/></svg></div><div><b>Pip</b><span>Weekly social media check-in</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="a-twinkle" d="M20 7l3.7 7.6 8.3 1.2-6 5.9 1.4 8.3-7.4-3.9-7.4 3.9 1.4-8.3-6-5.9 8.3-1.2z"/></svg></div><div><b>Vera</b><span>Reviews, replies and review requests</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="hl a-flame" d="M18 29l2 5 2-5"/><g class="a-bob"><path class="bg" d="M20 6c5 4 6 12 3 19h-6c-3-7-2-15 3-19z"/><circle cx="20" cy="15" r="2"/><path d="M17 24l-4 4v-6M23 24l4 4v-6"/></g></svg></div><div><b>Jules</b><span>Traffic and launch for two local businesses</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><clipPath id="cp-dash"><rect x="0" y="0" width="40" height="27"/></clipPath><g clip-path="url(#cp-dash)"><g class="a-rise"><circle class="hl" cx="20" cy="27" r="7"/><path class="hl" d="M20 15v-3M11 19l-2-2M29 19l2-2"/></g></g><path d="M5 27h30M11 32h18"/></svg></div><div><b>Dash</b><span>Pre-market brief for the owner</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><g class="a-bump"><path d="M7 25v-5l4-6h14l5 6h3v5z"/><path d="M12 20h19"/><circle class="bg" cx="13" cy="26" r="3"/><circle class="bg" cx="27" cy="26" r="3"/></g><path class="hl a-road" d="M4 32h32"/></svg></div><div><b>Remy</b><span>Event hotels and rental cars, shopped and re-checked</span></div></div>
-      <div class="agent"><div class="av"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="11" width="24" height="21" rx="2"/><path d="M8 17h24M14 8v5M26 8v5"/><path d="M13 22h1M19.5 22h1M26 22h1M13 27h1M19.5 27h1M26 27h1"/><rect class="fb a-hop" x="11" y="25" width="5" height="4" rx="1"/></svg></div><div><b>Cal</b><span>The event calendar, crew and travel for every show</span></div></div>
-    </div>
-  </section>
-
-  <section id="receipts">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">From the run logs</p>
-        <h2>What that looks like on a Tuesday.</h2>
-      </div>
-      <p>Real entries from Z-Clear's agents, in plain English. Agents shop, compare and recommend. Anything that spends money waits for a person to say yes.</p>
-    </div>
-    <div class="receipts">
-      <div class="receipt"><div class="amt">$247</div><p>Found a 2-bedroom rental for an 11-night fair that was cheaper than the one booked and half the drive to the booth. Re-priced it live four days later, before free cancellation ran out.<span class="by">Remy · lodging · Aug 2026</span></p></div>
-      <div class="receipt"><div class="amt">Keep it</div><p>Checked 33 alternatives for another fair and said to stay put. The cheapest one cost more than what was already booked, for half the bedrooms.<span class="by">Remy · lodging · Aug 2026</span></p></div>
-      <div class="receipt"><div class="amt">17%</div><p>Caught that a booking site's search totals leave out tax, so prices looked up to 17% cheaper than they were. Every quote since is opened and priced all-in.<span class="by">Remy · lodging · Aug 2026</span></p></div>
-      <div class="receipt"><div class="amt">4 → 1</div><p>Asked where the crew lived before pricing four rental cars. Three trips turned out to be drives from home, so only one car was needed. Then priced that one across every class.<span class="by">Cal · events · Sep 2026</span></p></div>
-      <div class="receipt"><div class="amt">$35–40</div><p>Found Alamo cheaper than Enterprise in every car class for that trip, with free cancellation, so there was no reason to wait to book.<span class="by">Cal · events · Sep 2026</span></p></div>
-      <div class="receipt"><div class="amt">1 Saturday</div><p>Spotted the owner booked at two shows 40 miles apart on the same day after a crew change, and flagged it before the weekend came.<span class="by">Cal · events · Sep 2026</span></p></div>
-      <div class="receipt"><div class="amt">61 runs</div><p>Found a scheduled job that reported success 61 times while the ads agent inside it never ran. Nobody would have seen it from the dashboard.<span class="by">Vic · CEO agent · Sep 2026</span></p></div>
-      <div class="receipt"><div class="amt">4,491</div><p>Checked the live Amazon listing before submitting new bullet points for a product with 4,491 ratings, found the approved copy was already up, and held the change instead of overwriting it.<span class="by">Mack · Amazon · Sep 2026</span></p></div>
-    </div>
   </section>
 
   <section id="how">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">How every agent works</p>
-        <h2>Checked before it acts. Logged after.</h2>
+        <p class="eyebrow">How it works</p>
+        <h2>Simple, and you stay in charge.</h2>
       </div>
-      <p>This is the loop each agent runs on every job. It is why the fleet can be trusted with live ad budgets and customer email.</p>
+      <p>No jargon and no big project to start. We begin with the one job you most want off your plate.</p>
     </div>
-    <ol class="loop">
-      <li><b>Draft</b><span>The agent does the work: a bid change, a title, a reply.</span></li>
-      <li><b>Score</b><span>A critic grades the draft 0–10 against the job's rules.</span></li>
-      <li><b>Revise</b><span>Anything below the bar gets rewritten, or held for you.</span></li>
-      <li><b>Act</b><span>Only passing work goes live, inside set spending limits.</span></li>
-      <li><b>Log</b><span>Every run is written down, so you can see exactly what happened.</span></li>
+    <ol class="loop three">
+      <li><b>Talk</b><span>A free call. Tell us what takes up your week.</span></li>
+      <li><b>Set up</b><span>We set up Claude and your AI helpers, and show you how to use them.</span></li>
+      <li><b>You approve</b><span>Anything that spends money or can't be undone waits for your yes, and you can see everything they did.</span></li>
     </ol>
   </section>
 
@@ -581,7 +435,7 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
         <p class="eyebrow">Who you work with</p>
         <h2>Hi, I'm Chris Ward.</h2>
       </div>
-      <p>I'm a father of four and I've spent more than a decade building businesses. I ran a health and fitness business for 10 years. Today I own Z-Clear Anti-Fog in Ogden, Utah, the GoodLife Nailz salon, the GoodLife Gemz crystal shop and a snow removal business, and I work on AI full time, for my own companies and for clients. Everything we teach, we run first at Z-Clear: the numbers above come straight from its books, Shopify and Amazon.</p>
+      <p>I'm a father of four and I've spent more than a decade building businesses. Today I own Z-Clear Anti-Fog in Ogden, Utah, the GoodLife Nailz salon, the GoodLife Gemz crystal shop and a snow removal business, and I work on AI full time, for my own companies and for clients. Everything we teach, we run first in my own businesses.</p>
     </div>
     <ul class="biz" aria-label="Chris Ward's businesses">
       <li><a href="https://z-clear.com/" rel="noopener"><b>Z-Clear Anti-Fog</b><span>Anti-fog and lens care, made in Ogden</span></a></li>
@@ -609,8 +463,8 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
     <div class="contact">
       <div>
         <p class="eyebrow">Get started</p>
-        <h2>Tell us the work you want off your plate.</h2>
-        <p class="lede">We'll map it to agents, show you what the first 30 days look like, and quote it. The assessment is free.</p>
+        <h2>What would you do with more time?</h2>
+        <p class="lede">Tell us the work you want off your plate. The first call is free, and we'll show you in plain English where AI fits in your business.</p>
       </div>
       <div class="mail">
         <span class="eyebrow">Email us</span>
@@ -622,7 +476,7 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
 
   <footer>
     <span>© 2026 Ward Consulting AI</span>
-    <span>Proven on Z-Clear Anti-Fog · Ogden, Utah</span>
+    <span>Ogden, Utah</span>
   </footer>
 </div>
 <script>
