@@ -177,10 +177,18 @@ function scoreIt(a,D){
   if(a.quotes_jobs==="yes") add("estimator","they price or quote jobs individually");
   if(a.price_list==="yes"||a.price_list==="none") add("price-book","their price list is stale or does not exist");
   if((a.reviews_now||[]).includes("dont")) add("reviews","they do not ask for reviews today");
-  if(a.website) add("website","they have a live site",2);
+  const site=(a.website||"").trim();
+  const hasSite=/^(https?:\/\/)?(www\.)?[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}(\/\S*)?$/i.test(site);
+  if(hasSite) add("website","they have a live site",2);
 
   for(const pat of Object.keys(weight)){
     if(patBy[pat].blocked){ gaps.push(`CANNOT OFFER ${pat}: ${patBy[pat].blocked}`); delete weight[pat]; delete evidence[pat]; }
+  }
+  if(site && !hasSite && ("website" in weight)){
+    delete weight["website"]; delete evidence["website"];
+    gaps.push("NO WEBSITE YET: you told us you do not have a site, so a site audit cannot help yet. The first step is a simple website and a Google Business Profile.");
+  } else if(site && !hasSite){
+    gaps.push("NO WEBSITE YET: you told us you do not have a site.");
   }
   const forced=[];
   for(const pat of Object.keys(weight)){
@@ -291,7 +299,7 @@ function quoteFor(shortlist,D){
 <script>(function(){
 "use strict";
 var D=JSON.parse(document.getElementById("DATA").textContent);
-var CFG={"form_endpoint":"https://formsubmit.co/ajax/chris@z-clear.com","notify_email":"chris@z-clear.com","min_seconds_before_send":25};
+var CFG={"form_endpoint":"https://formsubmit.co/ajax/7fbd7e6f9b9178360b909504bd877f07","min_seconds_before_send":25};
 var Q={}; D.questions.forEach(function(q){Q[q.id]=q;});
 var KEY="wc-intake-v1";
 var A={}, step=0, pendingPain=0, shownRefl={};
@@ -487,6 +495,21 @@ function mirror(host){
 function noPrice(t){ if(!t) return t; var o={}; for(var k in t) if(k!=="price") o[k]=t[k]; return o; }
 var START=Date.now();
 
+function demandKind(){
+  var d=A.door, p=A.idea_paying;
+  if((d==="B"||d==="C") && (p==="paid"||p==="said_yes")) return "validated";
+  if(d==="B"||d==="C") return "unvalidated";
+  return "other";
+}
+function noListText(){
+  var k=demandKind();
+  if(k==="validated") return {head:"Next, we work out what to build",
+    body:"People have told you they would pay, so the next step is a working session to decide what gets built first. We do not have a ready-made agent for this; we would design it with you."};
+  if(k==="unvalidated") return {head:"We are not going to sell you agents yet",
+    body:"On what you have told us, the next step is not building anything. It is finding out whether one person will pay for this, which costs nothing and takes a week. We would rather tell you that than quote you for a build."};
+  return {head:"We do not have a ready-made agent for this yet",
+    body:"None of the agents we have written fits what you told us. Send us your answers and we will tell you plainly whether we can build one."};
+}
 function summaryText(r){
   var L=[];
   L.push("WHAT WE WOULD DO FIRST");
@@ -509,8 +532,7 @@ function summaryText(r){
     });
     L.push("");
   } else {
-    L.push("WE ARE NOT GOING TO SELL YOU AGENTS YET");
-    L.push("On your answers the next step is not building. It is finding out whether one person will pay.");
+    var nx=noListText(); L.push(nx.head.toUpperCase()); L.push(nx.body);
     L.push("");
   }
   L.push("WHAT WE STILL DO NOT KNOW (confidence: "+r.confidence+")");
@@ -542,7 +564,7 @@ function offerFallback(host,payload,r){
   nav.appendChild(cp);
   var subj="Questionnaire result"+(A.biz_name?(" \u2014 "+A.biz_name):"");
   var body="Here are my answers from wardconsulting.ai\n\n"+summaryText(r)+"\n\n---\n"+payload;
-  nav.appendChild(el("a",{class:"back",href:"mailto:"+(CFG.notify_email||"")+"?subject="+
+  nav.appendChild(el("a",{class:"back",href:"mailto:"+["chris","z-clear.com"].join("@")+"?subject="+
     encodeURIComponent(subj)+"&body="+encodeURIComponent(body.slice(0,1400))},"or open an email"));
   var rs=el("button",{class:"back",type:"button"},"Start over");
   rs.onclick=function(){ if(!confirm("Clear your answers and start again?"))return;
@@ -632,8 +654,9 @@ function result(host){
         : "")));
     host.appendChild(un);
   } else {
-    host.appendChild(el("h2",null,"We are not going to sell you agents yet"));
-    host.appendChild(el("p",null,"On what you have told us, the next step is not building anything. It is finding out whether one person will pay for this — which costs nothing and takes a week. We would rather tell you that than quote you for a build."));
+    var nx2=noListText();
+    host.appendChild(el("h2",null,nx2.head));
+    host.appendChild(el("p",null,nx2.body));
   }
 
   host.appendChild(el("h2",null,"Your first two weeks"));
@@ -662,6 +685,23 @@ function result(host){
         "Only then do we talk about a second one. One agent in daily use beats three nobody opens"]);
     }
   } else {
+    var dm=demandKind();
+    if(dm==="validated"){
+    week(1,"Decide what gets built first",[
+      "Write down what your first paying customer gets on day one",
+      "List what it must do now and what can wait",
+      "Bring both to a working session with us"]);
+    week(2,"Turn it into a build plan",[
+      "We agree what gets built, in what order, and who runs it",
+      "Nothing is built until you have approved that plan"]);
+    } else if(dm==="other"){
+    week(1,"Tell us more",[
+      "Send us your answers below",
+      "We reply plainly: whether we can build something for this, and what it would take"]);
+    week(2,"Decide together",[
+      "If we can help, we agree the first step with you",
+      "If we cannot, we tell you, and point you to what would"]);
+    } else {
     week(1,"Find out if anyone will pay",[
       "Write down the one sentence that describes it, and who it is for",
       "Talk to five people who look like that. Ask what they do today and what it costs them",
@@ -669,6 +709,7 @@ function result(host){
     week(2,"Come back with what they said",[
       "If anyone said yes, that changes everything and we talk about building",
       "If nobody did, you have saved yourself the build \u2014 that is the week working, not failing"]);
+    }
   }
   host.appendChild(wk);
 
