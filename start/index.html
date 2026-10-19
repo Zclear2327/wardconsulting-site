@@ -80,6 +80,8 @@ label.fl{display:block;font-family:var(--display);font-size:.85rem;color:var(--m
   border-radius:999px;padding:11px 22px;font-family:var(--display);font-weight:600;font-size:.95rem}
 .go[disabled]{opacity:.42;cursor:not-allowed}
 .back{background:none;border:none;color:var(--muted);text-decoration:underline;padding:11px 2px;font-size:.9rem}
+.backtop{display:inline-flex;align-items:center;gap:6px;background:var(--panel);color:var(--ink);border:1px solid var(--ink);border-radius:999px;padding:9px 18px;margin:0 0 18px;font-family:var(--display);font-weight:600;font-size:.9rem;cursor:pointer}
+.backtop:hover{border-color:var(--accent);color:var(--accent)}
 .mirror{border-left:3px solid var(--accent);background:var(--inset);
   padding:16px 18px;border-radius:0 10px 10px 0;margin:0 0 22px}
 .mirror p{margin:0;font-size:1.06rem}
@@ -187,6 +189,7 @@ function render(){
   D.sections.forEach(function(_,i){ ul.appendChild(el("li",{"data-on":i<=sIdx?"1":"0"})); });
   document.getElementById("stepname").textContent=
     "Section "+(sIdx+1)+" of "+D.sections.length+" · "+D.sections[sIdx];
+  if(step>0){ var bt=el("button",{class:"backtop",type:"button","aria-label":"Go back to the previous question"},"\u2190 Back"); bt.onclick=back; host.appendChild(bt); }
   if(st.k==="intro") return intro(host);
   if(st.k==="result") return result(host);
   return ask(host,Q[st.id]);
@@ -197,7 +200,6 @@ function navRow(host,onNext,enabled,label){
   var nav=el("div",{class:"nav"}), b=null;
   if(onNext){ b=el("button",{class:"go",type:"button"},label||"Continue");
     if(!enabled) b.disabled=true; b.onclick=onNext; nav.appendChild(b); }
-  if(step>0){ var k=el("button",{class:"back",type:"button"},"Back"); k.onclick=back; nav.appendChild(k); }
   host.appendChild(nav); return b;
 }
 function optButton(label,on){
@@ -440,7 +442,6 @@ function result(host){
   };
 
   var nav=el("div",{class:"nav"});
-  var bk=el("button",{class:"back",type:"button"},"Back"); bk.onclick=back; nav.appendChild(bk);
   var rs=el("button",{class:"back",type:"button"},"Start over");
   rs.onclick=function(){ if(!confirm("Clear your answers and start again?")) return;
     try{localStorage.removeItem(KEY);}catch(e){} A={}; step=0; render(); };
