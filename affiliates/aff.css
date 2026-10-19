@@ -76,3 +76,20 @@ td small{display:block;color:var(--muted);font-size:15px}
 .disclose{border-left:4px solid var(--brass);padding:14px 18px;background:var(--panel);margin:14px 0}
 footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:14px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 @media print{.copy button,.nav,.btns{display:none}body{background:#fff;color:#000}}
+/* waitlist forms (club, inbox cleanup) */
+.wl{background:var(--panel);border:1px solid var(--rule);padding:24px;max-width:36em;margin-top:18px}
+.wl label{display:block;font:700 14px/1.4 var(--body);margin:14px 0 6px}
+.wl input[type=email],.wl select{width:100%;font:400 17px/1.4 var(--body);padding:12px 14px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:2px}
+.wl .tick{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:16px}
+.wl .tick input{margin-top:5px;width:18px;height:18px;flex:0 0 18px}
+.wl .msg{font-size:15px;color:var(--muted);margin:12px 0 0;min-height:1.4em}
+.wl .btn{margin-top:16px}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.tier{background:var(--panel);border:1px solid var(--rule);padding:22px 20px;display:flex;flex-direction:column;gap:10px}
+.tier h3{margin:0}
+.tier .amt{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;color:var(--accent)}
+.tier .amt small{font:400 15px/1 var(--body);color:var(--muted)}
+.tier ul{margin:0;padding-left:18px;font-size:16px}
+.tier .tag{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--brass)}
+@media (max-width:900px){.tiers{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.tiers{grid-template-columns:1fr}}
