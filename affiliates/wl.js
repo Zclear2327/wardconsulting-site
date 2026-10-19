@@ -26,6 +26,13 @@
         .then(function (j) {
           if (j && (j.success === false || j.success === "false")) throw new Error(j.message || "not accepted");
           msg.textContent = "Thanks, you're on the list. We'll email you when it opens.";
+          var dl = f.getAttribute("data-download");
+          if (dl && !f.querySelector(".dl")) {
+            var p = document.createElement("p"); p.className = "dl";
+            var a = document.createElement("a"); a.className = "btn primary"; a.href = dl; a.setAttribute("download", "");
+            a.textContent = "Download your free Inbox Cleanup guide";
+            p.appendChild(a); f.appendChild(p);
+          }
         })
         .catch(function (e) {
           btn.disabled = false;

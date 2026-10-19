@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /downloads/
 Allow: /
 
 Sitemap: https://wardconsulting.ai/sitemap.xml
