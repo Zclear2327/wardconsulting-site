@@ -1,4 +1,4 @@
-# Ward Consulting AI
+# Grow With AI
 
-The public website for [wardconsulting.ai](https://wardconsulting.ai), served by GitHub Pages.
-The source of truth is `wardconsulting-ai/site/` in Zclear2327/Zclear-Agent-HQ.
+The public website for Grow With AI, served by GitHub Pages at https://zclear2327.github.io/grow-with-ai/ until a domain is chosen.
+Moved off wardconsulting.ai on 2026-10-20 on Chris Ward's instruction; history up to that point lives in Zclear2327/wardconsulting-site (branch archive/grow-with-ai-2026-10-20).
