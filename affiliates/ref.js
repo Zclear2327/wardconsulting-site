@@ -1,4 +1,4 @@
-/* Ward Consulting AI: affiliate referral tracking.
+/* Grow With AI: affiliate referral tracking.
  *
  * Loaded on every page. Two jobs:
  *  1. When a visitor arrives on a link carrying ?ref=CODE (or ?aff=CODE), remember the code for
@@ -69,7 +69,7 @@
       apply[j].setAttribute("href", APPLY_URL ||
         "mailto:hello@wardconsulting.ai?subject=" + encodeURIComponent("Affiliate application") +
         "&body=" + encodeURIComponent(
-          "Name:\nWhere I'd share Ward Consulting (website, social accounts, newsletter, clients):\n" +
+          "Name:\nWhere I'd share Grow With AI (website, social accounts, newsletter, clients):\n" +
           "Roughly how many business owners I reach:\nPayPal email for commissions:\n\n" +
           "I have read the affiliate guide and agree to disclose that I earn a commission."));
     }
