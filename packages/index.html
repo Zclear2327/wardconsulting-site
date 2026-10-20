@@ -31,11 +31,12 @@
   </header>
 
   <div class="hero">
-    <p class="eyebrow">Grow With AI Packages &middot; opening soon</p>
+    <p class="eyebrow">Grow With AI Packages<span class="wl-only"> &middot; opening soon</span></p>
     <h1>A new AI helper for your work, <em>every month.</em></h1>
     <p class="lede">Your email, your travel, your stock watch, your calories, your quotes: whatever you want AI to take off your plate. Each month members get a new, tested AI helper (we call them bots) with plain-English setup, starting from the AI you already pay for wherever it can. Your first month is your start-up month, then a lower monthly rate. Cancel anytime.</p>
     <div class="btns">
-      <a class="btn primary big" href="#join">Join the waitlist</a>
+      <a class="btn primary big wl-only" href="#join">Join the waitlist</a>
+      <a class="btn primary big live-only" href="#join" hidden>Pick your package</a>
       <a class="btn ghost big" href="../start/">Not sure where to start? Answer a few questions</a>
     </div>
   </div>
@@ -43,22 +44,24 @@
   <section id="plans">
     <p class="eyebrow">Plans</p>
     <h2>Pick the pace that fits you.</h2>
-    <p>Your first month is your start-up month. After that you pay a lower monthly rate to keep access to our agents and get new ones every month. Cancel anytime. Nothing is charged while packages are on the waitlist.</p>
+    <p>Your first month is your start-up month. After that you pay a lower monthly rate to keep access to our agents and get new ones every month. Cancel anytime.<span class="wl-only"> Nothing is charged while packages are on the waitlist.</span></p>
     <div class="tiers two">
       <article class="tier">
         <h3>Pro</h3>
         <div class="amt">$49.99<small> start-up month</small></div>
         <p class="price-then">then $29.99 a month to keep access to our agents</p>
         <ul><li>Start-up month with step-by-step setup</li><li>1 new bot every month</li><li>Your own referral link</li></ul>
+        <a class="btn primary live-only" data-checkout="pro" href="#join" hidden>Start Pro</a>
       </article>
       <article class="tier">
         <h3>Business</h3>
         <div class="amt">$99<small> start-up month</small></div>
         <p class="price-then">then $49.99 a month</p>
         <ul><li>Start-up month with step-by-step setup</li><li>2 new bots every month</li><li>Early access to new bots</li><li>Your own referral link</li></ul>
+        <a class="btn primary live-only" data-checkout="business" href="#join" hidden>Start Business</a>
       </article>
     </div>
-    <p class="note">Plan details are confirmed before anyone is charged. You need your own AI account (for example Claude, ChatGPT or Gemini), paid separately to that company.</p>
+    <p class="note"><span class="wl-only">Plan details are confirmed before anyone is charged. </span>You need your own AI account (for example Claude, ChatGPT or Gemini), paid separately to that company.</p>
   </section>
 
   <section id="how">
@@ -82,6 +85,16 @@
   </section>
 
   <section id="join">
+    <div class="live-only" hidden>
+      <p class="eyebrow">Get started</p>
+      <h2>Pick your package.</h2>
+      <p>Checkout is secure and handled by ThriveCart. Your first month is your start-up month, then the lower monthly rate. Cancel anytime.</p>
+      <div class="btns">
+        <a class="btn primary big" data-checkout="pro" href="#plans">Start Pro: $49.99, then $29.99/month</a>
+        <a class="btn primary big" data-checkout="business" href="#plans">Start Business: $99, then $49.99/month</a>
+      </div>
+    </div>
+    <div class="wl-only">
     <p class="eyebrow">Join the waitlist</p>
     <h2>Pick your package and join the waitlist.</h2>
     <p>Pick your package and leave your email. We'll email you when packages open. Nothing is charged now.</p>
@@ -95,7 +108,8 @@
       <button class="btn primary" type="submit">Join the waitlist</button>
       <p class="msg" role="status" aria-live="polite"></p>
     </form>
-    <p class="note">We do not sell or share your address. Questions? Email <a href="mailto:hello@wardconsulting.ai?subject=Packages%20question">hello@wardconsulting.ai</a>. Grow With AI is not affiliated with Anthropic, OpenAI or Google.</p>
+    </div>
+    <p class="note"><span class="wl-only">We do not sell or share your address. </span>Questions? Email <a href="mailto:hello@wardconsulting.ai?subject=Packages%20question">hello@wardconsulting.ai</a>. Grow With AI is not affiliated with Anthropic, OpenAI or Google.</p>
   </section>
 
   <footer>

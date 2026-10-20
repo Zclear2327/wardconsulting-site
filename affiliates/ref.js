@@ -15,9 +15,16 @@
  * APPLY_URL: paste the ThriveCart affiliate sign-up link here once the account exists. While it is
  * empty, every "Apply" button opens an email to hello@wardconsulting.ai instead, so the page works
  * on day one.
+ *
+ * CHECKOUT: paste each package's ThriveCart checkout link here. While BOTH are empty the packages
+ * page shows the waitlist and nothing can be bought. Once both are filled in, every element marked
+ * class="wl-only" hides, every element marked class="live-only" shows, and each [data-checkout]
+ * button points at its checkout link with the visitor's remembered ?ref= code added, so ThriveCart
+ * credits the affiliate.
  */
 (function () {
   var APPLY_URL = "";
+  var CHECKOUT = { pro: "", business: "" };
   var KEY = "wc_ref", DAYS = 90;
 
   function clean(v) { return (v || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40); }
@@ -74,8 +81,24 @@
           "I have read the affiliate guide and agree to disclose that I earn a commission."));
     }
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);
-  else wire();
+  function checkout() {
+    var live = !!(CHECKOUT.pro && CHECKOUT.business);
+    var els = document.querySelectorAll(".wl-only, .live-only");
+    for (var i = 0; i < els.length; i++) {
+      els[i].hidden = els[i].classList.contains("wl-only") ? live : !live;
+    }
+    if (!live) return;
+    var btns = document.querySelectorAll("[data-checkout]");
+    for (var j = 0; j < btns.length; j++) {
+      var url = CHECKOUT[btns[j].getAttribute("data-checkout")];
+      if (!url) continue;
+      if (code) url += (url.indexOf("?") === -1 ? "?" : "&") + "ref=" + encodeURIComponent(code);
+      btns[j].setAttribute("href", url);
+    }
+  }
+  var run = function () { wire(); checkout(); };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
 
   window.wcRef = { code: code || null };
 })();
