@@ -122,7 +122,7 @@ footer{border-top:1px solid var(--rule);color:var(--muted);font-size:.84rem;padd
 <body>
 <a class="sr" href="#q">Skip to the questions</a>
 <header class="bar"><div class="wrap">
-  <div class="brand">Grow With <span>AI</span></div>
+  <div class="brand"><a href="../" style="color:inherit;text-decoration:none">Grow With <span>AI</span></a> <a href="../" style="font-size:15px;margin-left:12px">Home</a></div>
   <button class="ghost" id="theme" type="button" aria-live="polite">Dark</button>
 </div></header>
 <main><div class="wrap">
@@ -133,7 +133,7 @@ footer{border-top:1px solid var(--rule);color:var(--muted);font-size:.84rem;padd
 <footer><div class="wrap">
   <p id="foot">Nothing here promises a result. Your answers stay in this browser until you choose to send them.</p>
 </div></footer>
-<script id="DATA" type="application/json">{"sections":["About you","Your AI today","What you'd hand over","Getting started","Your result"],"questions":[{"id":"about_curious","sec":0,"type":"yno","text":"I'm curious and want to see what AI can do for me."},{"id":"about_start","sec":0,"type":"yno","text":"I want to start something and don't know where to begin."},{"id":"about_curve","sec":0,"type":"yno","text":"I know AI is coming and I want to stay ahead of the curve."},{"id":"about_job","sec":0,"type":"yno","text":"I want to use AI properly in the job I already have."},{"id":"about_business","sec":0,"type":"yno","text":"I run a business and I want to see what AI can do for it."},{"id":"ai_pays","sec":1,"type":"single","text":"Do you pay for any AI subscriptions today?","options":[{"v":"yes","label":"Yes, at least one"},{"v":"no","label":"No, nothing paid"}]},{"id":"ai_tools","sec":1,"type":"multi","only_if":{"ai_pays":"yes"},"text":"Which ones? Pick all that apply.","options":[{"v":"chatgpt","label":"ChatGPT"},{"v":"claude","label":"Claude"},{"v":"gemini","label":"Gemini"},{"v":"copilot","label":"Microsoft Copilot"},{"v":"grok","label":"Grok"},{"v":"other","label":"Other","other":true}]},{"id":"ai_use","sec":1,"type":"single","text":"How often do you use AI now?","options":[{"v":"never","label":"Never yet"},{"v":"sometimes","label":"Sometimes"},{"v":"most_days","label":"Most days"}]},{"id":"handover","sec":2,"type":"multi","max_pick":3,"text":"What would you love AI to handle first? Pick up to 3.","options":[{"v":"email","label":"My email"},{"v":"quotes","label":"Quotes and invoices"},{"v":"scheduling","label":"Scheduling and bookings"},{"v":"travel","label":"Travel planning"},{"v":"tracking","label":"Tracking things (stocks, prices)"},{"v":"health","label":"Health and fitness (like calories)"},{"v":"other","label":"Other","other":true}]},{"id":"screen_time","sec":2,"type":"single","text":"How much of your day is repetitive screen time?","options":[{"v":"little","label":"A little"},{"v":"lot","label":"A lot"},{"v":"most","label":"Most of it"}]},{"id":"start_when","sec":3,"type":"single","text":"When would you like to start?","options":[{"v":"this_week","label":"This week"},{"v":"this_month","label":"This month"},{"v":"looking","label":"Just looking"}]},{"id":"affiliate","sec":3,"type":"single","text":"Want to earn your membership back? Become an affiliate.","help":"Refer people to Grow With AI Packages and earn 35% of their membership, from their second paid month.","options":[{"v":"yes","label":"Yes, sign me up"},{"v":"no","label":"Not right now"}]}]}</script>
+<script id="DATA" type="application/json">{"sections":["About you","Your AI today","What you'd hand over","Getting started","Your result"],"questions":[{"id":"about_curious","sec":0,"type":"yno","text":"I'm curious and want to see what AI can do for me."},{"id":"about_start","sec":0,"type":"yno","text":"I want to start something and don't know where to begin."},{"id":"about_curve","sec":0,"type":"yno","text":"I know AI is coming and I want to stay ahead of the curve."},{"id":"about_job","sec":0,"type":"yno","text":"I want to use AI properly in the job I already have."},{"id":"about_business","sec":0,"type":"yno","text":"I run a business and I want to see what AI can do for it."},{"id":"ai_pays","sec":1,"type":"single","text":"Do you pay for any AI subscriptions today?","options":[{"v":"yes","label":"Yes, at least one"},{"v":"no","label":"No, nothing paid"}]},{"id":"ai_tools","sec":1,"type":"multi","only_if":{"ai_pays":"yes"},"text":"Which ones? Pick all that apply.","options":[{"v":"chatgpt","label":"ChatGPT"},{"v":"claude","label":"Claude"},{"v":"gemini","label":"Gemini"},{"v":"copilot","label":"Microsoft Copilot"},{"v":"grok","label":"Grok"},{"v":"other","label":"Other","other":true}]},{"id":"ai_use","sec":1,"type":"single","text":"How often do you use AI now?","options":[{"v":"never","label":"Never yet"},{"v":"sometimes","label":"Sometimes"},{"v":"most_days","label":"Most days"}]},{"id":"handover","sec":2,"type":"multi","max_pick":3,"text":"What would you love AI to handle first? Pick up to 3.","options":[{"v":"email","label":"My email"},{"v":"quotes","label":"Quotes and invoices"},{"v":"scheduling","label":"Scheduling and bookings"},{"v":"travel","label":"Travel planning"},{"v":"tracking","label":"Tracking things (stocks, prices)"},{"v":"health","label":"Health and fitness (like calories)"},{"v":"other","label":"Other","other":true}]},{"id":"screen_time","sec":2,"type":"single","text":"How much of your day is repetitive screen time?","options":[{"v":"little","label":"A little"},{"v":"lot","label":"A lot"},{"v":"most","label":"Most of it"}]},{"id":"start_when","sec":3,"type":"single","text":"When would you like to start?","options":[{"v":"this_week","label":"This week"},{"v":"this_month","label":"This month"},{"v":"looking","label":"Just looking"}]},{"id":"affiliate","sec":3,"type":"single","text":"Want to earn your membership back? Become an affiliate.","help":"Refer 2 members and your membership is free, plus 35% of every membership you refer.","options":[{"v":"yes","label":"Yes, sign me up"},{"v":"no","label":"Not right now"}]}]}</script>
 <script src="../affiliates/ref.js"></script>
 <script>
 (function(){
@@ -363,8 +363,8 @@ function result(host){
   var c=el("div",{class:"card"});
   c.appendChild(el("h3",null,"Our recommendation"));
   var tl=el("div",{class:"tierline"});
-  tl.appendChild(el("strong",{class:"price"},"$29.99/mo"));
-  tl.appendChild(el("span",{style:"font-family:var(--display);font-weight:600"},"Starter package, first month free"));
+  tl.appendChild(el("strong",{class:"price"},"$49.99"));
+  tl.appendChild(el("span",{style:"font-family:var(--display);font-weight:600"},"Starter: start-up month, then $29.99 a month"));
   c.appendChild(tl);
   c.appendChild(el("p",{class:"because"}, subs.length
     ? "We get you started with the AI you already pay for ("+subs.join(", ")+"), so you build on what you have instead of buying something new."
@@ -377,7 +377,7 @@ function result(host){
   if(A.affiliate==="yes"){
     var a=el("div",{class:"card"});
     a.appendChild(el("h3",null,"Affiliate program"));
-    a.appendChild(el("p",{class:"because"},"Refer people to Grow With AI Packages and earn 35% of their membership, from their second paid month. Read how it works, then apply."));
+    a.appendChild(el("p",{class:"because"},"Refer 2 members and your membership is free, plus 35% of every membership you refer. Read how it works, then apply."));
     a.appendChild(el("a",{class:"back",href:"../affiliates/",style:"padding-left:0"},"See the affiliate program"));
     host.appendChild(a);
   }
