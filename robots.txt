@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /downloads/
 Allow: /
 
-Sitemap: https://wardconsulting.ai/sitemap.xml
+Sitemap: https://zclear2327.github.io/grow-with-ai/sitemap.xml
