@@ -30,7 +30,7 @@ function clearAll() { try { localStorage.removeItem(KEY); } catch (e) {} A = {};
 
 /* ---------- questions ---------- */
 var EMAIL_OPTS = [
-  { v: "gmail", label: "Gmail (red M)" },
+  { v: "gmail", label: "Gmail" },
   { v: "m365", label: "Microsoft 365 / Outlook for work (blue Outlook logo, company address)" },
   { v: "outlookcom", label: "Outlook.com, Hotmail or Live (personal)" },
   { v: "other", label: "Something else" },
@@ -39,13 +39,13 @@ var EMAIL_OPTS = [
 var Q = {
   q1: { sec: 1, type: "text", text: "What kind of business do you run?", ph: "For example: a house-cleaning business in Ogden" },
   q2: { sec: 1, type: "text", text: "What takes up too much of your week?", chips: ["Email", "Quotes and invoices", "Scheduling", "Follow-ups", "Other"] },
-  q3: { sec: 2, type: "single", text: "Where does your work email live?", help: "Not sure? When you open your email, do you see a red M or a blue Outlook logo?", options: EMAIL_OPTS },
+  q3: { sec: 2, type: "single", text: "Where does your work email live?", help: "Not sure? Check the address you send email from. Ending in @gmail.com means Gmail.", options: EMAIL_OPTS },
   q4a: { sec: 2, type: "single", text: "What do you work on most days?", options: [{ v: "mac", label: "Mac" }, { v: "windows", label: "Windows computer" }, { v: "phone", label: "Mostly my phone" }] },
-  q4b: { sec: 2, type: "single", text: "Which web browser do you use?", options: [{ v: "chrome", label: "Chrome (colorful circle)" }, { v: "edge", label: "Edge (blue swirl)" }, { v: "safari", label: "Safari (compass)" }, { v: "other", label: "Other / not sure" }] },
+  q4b: { sec: 2, type: "single", text: "Which web browser do you use?", options: [{ v: "chrome", label: "Chrome" }, { v: "edge", label: "Edge" }, { v: "safari", label: "Safari" }, { v: "other", label: "Other / not sure" }] },
   q5a: { sec: 2, type: "single", text: "How comfortable are you with new apps?", options: [{ v: "start", label: "Just starting" }, { v: "getting", label: "Getting there" }, { v: "very", label: "Very comfortable" }] },
   q5b: { sec: 2, type: "single", text: "Have you used an AI chat app before?", options: [{ v: "no", label: "No" }, { v: "little", label: "A little" }, { v: "lot", label: "A lot" }] },
   q5c: { sec: 2, type: "single", text: "Okay to add a small browser add-on if we walk you through it?", options: [{ v: "yes", label: "Yes" }, { v: "no", label: "I'd rather not" }] },
-  q6: { sec: 3, type: "single", text: "Would you like your trainer to be Sam, with a female voice and style, or Travis, with a male voice and style?", help: "You can switch any time.", options: [{ v: "Sam", label: "Sam" }, { v: "Travis", label: "Travis" }, { v: "Sam", label: "Either is fine", id: "either" }] }
+  q6: { sec: 3, type: "single", text: "Pick your trainer: Sam or Travis.", help: "Sam has a female voice and style; Travis has a male voice and style. You can switch any time.", options: [{ v: "Sam", label: "Sam" }, { v: "Travis", label: "Travis" }, { v: "Sam", label: "Either is fine", id: "either" }] }
 };
 
 /* ---------- no-email branch ---------- */
@@ -159,7 +159,7 @@ function hesitance(h, id) {
 function welcome(h) {
   h.appendChild(el("p", { class: "voice" }, "Setup"));
   h.appendChild(el("h1", null, "Welcome to Ward Consulting AI."));
-  h.appendChild(el("p", null, "We'd like to ask you a few basic questions before your trainer is set up. This helps us create an assistant that best fits your needs. It takes about two minutes. The setup is free."));
+  h.appendChild(el("p", null, "We'd like to ask you a few basic questions before your trainer is set up. This helps us create an assistant that best fits your needs. Your first win takes about 10 minutes, and the full setup about 20. The setup is free."));
   h.appendChild(vid("welcome", "Video: Chris Ward welcomes you (20 seconds)"));
   h.appendChild(el("p", { class: "help" }, "You stay in charge. We never ask for passwords. Your answers stay in this browser until you choose to send them."));
   navRow(h, next, true, "Begin");
@@ -294,14 +294,14 @@ var STEPS = {
   grok: {
     phone: [
       ["Open the App Store (iPhone) or Google Play (Android).", "the store open"],
-      ["Search “Grok”. Check it's the official app from xAI.", "Grok in the results"],
-      ["Tap Get or Install.", "the Grok app on your phone"],
-      ["Open it and sign in or create an account. You type your own password and codes.", "the chat box"],
-      ["Tap “Copy my email helper” below, paste it into the chat, and send.", "your trainer say “Hi, I'm here”"]
+      ["Search “Grok Bot”. Check it's the official Grok Bot app.", "Grok Bot in the results"],
+      ["Tap Get or Install.", "the Grok Bot app on your phone"],
+      ["Open it and sign in. You need X Premium (about $30 a month, paid to X). You type your own password and codes.", "the chat box"],
+      ["Tap “Copy my email helper” below, paste it into a Grok Bot chat, and send.", "your trainer say “Hi, I'm here”"]
     ],
     computer: [
-      ["Open grok.com in your browser.", "Grok's page", "https://grok.com"],
-      ["Sign in or create an account yourself.", "you're signed in"],
+      ["Download Grok Bot for Mac or Windows from cursor.com/download/bot.", "the download page", "https://cursor.com/download/bot"],
+      ["Install it, open it and sign in yourself. You need X Premium (about $30 a month, paid to X).", "you're signed in"],
       ["Find the chat box.", "the chat box"],
       ["Tap “Copy my email helper” below, paste it into the chat, and send.", "your trainer say “Hi, I'm here”"],
       ["Send a screenshot of your inbox list when it asks.", "your inbox sorted into groups"]
@@ -334,7 +334,7 @@ var STEPS = {
   }
 };
 var COST = {
-  grok: "Our setup is free. To start free, use Grok on grok.com or the Grok phone app: you send a screenshot of your inbox and your trainer sorts it. For hands-free email (it connects to your inbox and does the work), you need Grok Bot, which comes with The X Subscription Premium plan ($30 a month, paid to xAI). The $8 Plus plan doesn't include Grok Bot. Optional.",
+  grok: "Our setup is free. For beginners we use Grok Bot, which needs X Premium (The X Subscription Premium plan, about $30 a month, paid to X). The $8 Plus plan doesn't include Grok Bot. Grok Bot can connect to your inbox after you click Allow yourself.",
   claude: "Our setup is free, and Claude has a free plan. On Free, you can send a screenshot of your inbox, or connect Gmail or a Microsoft 365 work account (your admin may need to approve Microsoft 365 once). For Claude in Chrome, which can do the clicks you approve, you need Claude Pro, about $20 a month ($17 billed yearly), paid to Anthropic. Optional."
 };
 var UPGRADE = {
@@ -371,9 +371,11 @@ function result(h) {
     tabs.appendChild(b);
   });
   h.appendChild(tabs);
-  var DV = { grok: { phone: ["grok-phone", "Grok on your phone (23 seconds)"], computer: ["grok-computer", "Grok on your computer (20 seconds)"] },
+  var DV = { grok: { phone: null, computer: null },
     claude: { mac: ["claude-mac", "Claude on a Mac (26 seconds)"], windows: ["claude-windows", "Claude on Windows (22 seconds)"], phone: ["claude-phone", "Claude on your phone (16 seconds)"] } }[tr][cur];
   if (DV) h.appendChild(vid(DV[0], "Video: " + DV[1]));
+  // TODO RECOMMENDED DEFAULT 5 (v5): Grok clips hidden until Grok Bot re-record (see Grok-Bot-Rerecord-Scripts-v1). Restore the two DV entries to bring them back.
+  else if (tr === "grok") h.appendChild(el("p", { class: "help" }, "Video coming soon."));
 
   var list = STEPS[tr][cur], done = A.done || 0;
   var ol = el("ol", { class: "isteps" });
@@ -390,11 +392,11 @@ function result(h) {
     ol.appendChild(li);
   });
   h.appendChild(ol);
-  if (tr === "grok" && cur === "computer") h.appendChild(el("p", { class: "help" }, "Grok doesn't need a desktop app; it runs in your browser at grok.com."));
+  if (tr === "grok" && cur === "computer") h.appendChild(el("p", { class: "help" }, "Grok Bot is a desktop app; get it at cursor.com/download/bot."));
   if (done >= list.length) h.appendChild(el("p", { class: "flash small", role: "status" }, "Nice work. Your free email helper is set up."));
 
   var up = el("details", { class: "stuck" });
-  up.appendChild(el("summary", null, tr === "grok" ? "Optional: hands-free email (paid)" : "Optional: Claude Pro extras (paid)"));
+  up.appendChild(el("summary", null, tr === "grok" ? "Optional: connect your inbox" : "Optional: Claude Pro extras (paid)"));
   up.appendChild(el("p", null, UPGRADE[tr]));
   if (tr === "grok") up.appendChild(el("a", { href: "https://docs.x.ai/grok-bot/get-started", target: "_blank", rel: "noopener" }, "xAI's Grok Bot guide (new tab)"));
   h.appendChild(up);
@@ -402,7 +404,7 @@ function result(h) {
   // copy box
   h.appendChild(el("h2", null, "Your free email helper"));
   h.appendChild(vid("first-win", "Video: your first win (23 seconds)"));
-  h.appendChild(el("p", { class: "help" }, "Copy this and paste it into " + (tr === "grok" ? "a new Grok chat." : "your Claude project instructions, or a new Claude chat.")));
+  h.appendChild(el("p", { class: "help" }, "Copy this and paste it into " + (tr === "grok" ? "a new Grok Bot chat." : "your Claude project instructions, or a new Claude chat.")));
   var AG = { id: "Email-Inbox", name: "Email & Inbox Agent" };
   var txt = PROMPT[tr].split("[NAME]").join(name) + window.GWAIWalk.walkthrough(tr, AG);
   var pre = el("pre", { class: "copybox", tabindex: "0", "aria-label": "Your free email helper text" }, txt);
@@ -416,9 +418,9 @@ function result(h) {
 
   h.appendChild(el("p", { class: "help" }, "Stuck? Email hello@wardconsulting.ai and tell us what you see on screen. Please don't email us passwords or inbox screenshots."));
   h.appendChild(el("h2", null, "Your 5 AI agents"));
-  h.appendChild(el("p", { class: "help" }, "Your Email & Inbox Agent is free. Pro adds one new agent every month, and Business adds two, until you have all five."));
+  h.appendChild(el("p", { class: "help" }, "Your Email & Inbox Agent is free. Starter adds 1 paid agent of your choice. Pro and Elite include all 4."));
   var five = el("ol", { class: "rows" });
-  [["Email & Inbox Agent", "Free: yours now"], ["Customer Questions Agent", "Pro & Business"], ["Sales & Follow-Up Agent", "Pro & Business"], ["Daily Assistant", "Pro & Business"], ["Content & Social Agent", "Pro & Business"]].forEach(function (a, i) {
+  [["Email & Inbox Agent", "Free: yours now"], ["Customer Questions Agent", "Starter, Pro & Elite"], ["Sales & Follow-Up Agent", "Starter, Pro & Elite"], ["Daily Assistant", "Starter, Pro & Elite"], ["Content & Social Agent", "Starter, Pro & Elite"]].forEach(function (a, i) {
     var li = el("li"); li.appendChild(el("span", { class: "num" }, String(i + 1)));
     var d = el("div"); d.appendChild(el("h3", null, a[0])); d.appendChild(el("p", { class: "because" }, a[1]));
     if (i > 0) { var u = el("a", { href: "https://zclear2327.github.io/grow-with-ai/members/", class: "unlocklink" }, "Members: unlock and copy it"); d.appendChild(u); }
