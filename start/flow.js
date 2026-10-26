@@ -119,7 +119,7 @@ function waitlistScreen(h) { // CAPACITY.mode === "waitlist" (start/capacity.js)
   var f = el("form", { novalidate: "novalidate" });
   var l = el("label", { class: "fl", for: "wem" }, "Your email"); var em = el("input", { id: "wem", type: "email", autocomplete: "email", required: "required" });
   var cons = el("label", { class: "opt", style: "margin-top:12px" }); var cb = el("input", { type: "checkbox", id: "wcons" });
-  var cl = el("span", { class: "lab" }, (window.GWAILead ? GWAILead.consentText : "Email me when the next group opens.") + " "); cl.appendChild(el("a", { href: "https://zclear2327.github.io/grow-with-ai/privacy/" }, "Privacy"));
+  var cl = el("span", { class: "lab" }, (window.GWAILead ? GWAILead.consentText : "Email me when the next group opens.") + " "); cl.appendChild(el("a", { href: "../privacy/" }, "Privacy"));
   cons.appendChild(cb); cons.appendChild(cl);
   var send = el("button", { class: "go", type: "submit", style: "margin-top:18px" }, "Join the waitlist");
   var msg = el("p", { class: "help", role: "status", "aria-live": "polite" }, "");
@@ -479,10 +479,10 @@ function capture(h, tr) {
   var f = el("form", { novalidate: "novalidate" });
   var l1 = el("label", { class: "fl", for: "fn" }, "First name (optional)"); var fn = el("input", { id: "fn", type: "text", maxlength: "40", autocomplete: "given-name" });
   var l2 = el("label", { class: "fl", for: "em", style: "margin-top:12px" }, "Your email"); var em = el("input", { id: "em", type: "email", autocomplete: "email", required: "required" });
-  var emNote = el("p", { class: "help", id: "em-note" }, "We use your email only to send your setup and updates. Unsubscribe anytime. "); emNote.appendChild(el("a", { href: "https://zclear2327.github.io/grow-with-ai/privacy/" }, "Privacy")); em.setAttribute("aria-describedby", "em-note");
+  var emNote = el("p", { class: "help", id: "em-note" }, "We use your email only to send your setup and updates. Unsubscribe anytime. "); emNote.appendChild(el("a", { href: "../privacy/" }, "Privacy")); em.setAttribute("aria-describedby", "em-note");
   var hp = el("input", { type: "text", name: "_honey", tabindex: "-1", "aria-hidden": "true", autocomplete: "off", style: "position:absolute;left:-9999px;width:1px;height:1px;opacity:0" });
   var cons = el("label", { class: "opt", style: "margin-top:12px" }); var cb = el("input", { type: "checkbox", id: "cons" });
-  cons.appendChild(cb); var cl = el("span", { class: "lab" }, window.GWAILead ? GWAILead.consentText + " " : "Email me the steps and one check-in a week from now. "); cl.appendChild(el("a", { href: "https://zclear2327.github.io/grow-with-ai/privacy/" }, "Privacy")); cons.appendChild(cl);
+  cons.appendChild(cb); var cl = el("span", { class: "lab" }, window.GWAILead ? GWAILead.consentText + " " : "Email me the steps and one check-in a week from now. "); cl.appendChild(el("a", { href: "../privacy/" }, "Privacy")); cons.appendChild(cl);
   var msg = el("p", { class: "help", role: "status", "aria-live": "polite" }, "");
   var send = el("button", { class: "go", type: "submit", style: "margin-top:18px" }, "Send me the steps");
   [l1, fn, l2, em, emNote, hp, cons, send, msg].forEach(function (n) { f.appendChild(n); });
