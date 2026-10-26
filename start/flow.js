@@ -137,7 +137,8 @@ function waitlistScreen(h) { // CAPACITY.mode === "waitlist" (start/capacity.js)
 
 function render() {
   clearTimeout(idleTimer);
-  if (window.CAPACITY && CAPACITY.mode === "waitlist") { var wh = host(); wh.innerHTML = ""; wh.className = "screen"; waitlistScreen(wh); return; }
+  if (window.CAPACITY && CAPACITY.mode === "waitlist" && !/[?&]member=1(&|$)/.test(location.search)) { // members (from /welcome/) skip the waitlist
+    var wh = host(); wh.innerHTML = ""; wh.className = "screen"; waitlistScreen(wh); return; }
   var P = plan(); if (step >= P.length) step = P.length - 1; if (step < 0) step = 0;
   var s = P[step], h = host();
   h.innerHTML = ""; h.className = "screen";
