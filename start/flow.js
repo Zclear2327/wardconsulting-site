@@ -99,6 +99,16 @@ function secOf(s) { return s.k === "ask" ? Q[s.id].sec : s.sec; }
 /* ---------- dom helpers ---------- */
 function el(tag, attrs, txt) { var n = document.createElement(tag); if (attrs) for (var k in attrs) n.setAttribute(k, attrs[k]); if (txt != null) n.textContent = txt; return n; }
 function host() { return document.getElementById("q"); }
+// Short videos: Chris (V1-V7, V10) and the AI trainers Sam and Travis. Never autoplay; captions on by default.
+var VIDEO_BASE = "video/";
+function vid(name, label, cls) {
+  var f = el("figure", { class: "vid" + (cls ? " " + cls : "") });
+  var v = el("video", { controls: "", preload: "none", playsinline: "", poster: VIDEO_BASE + "gwai-" + name + ".jpg", "aria-label": label });
+  v.appendChild(el("source", { src: VIDEO_BASE + "gwai-" + name + ".mp4", type: "video/mp4" }));
+  v.appendChild(el("track", { kind: "captions", srclang: "en", label: "English", src: VIDEO_BASE + "gwai-" + name + ".vtt", default: "" }));
+  f.appendChild(v); f.appendChild(el("figcaption", null, label));
+  return f;
+}
 var idleTimer = null;
 
 function render() {
@@ -150,6 +160,7 @@ function welcome(h) {
   h.appendChild(el("p", { class: "voice" }, "Setup"));
   h.appendChild(el("h1", null, "Welcome to Ward Consulting AI."));
   h.appendChild(el("p", null, "We'd like to ask you a few basic questions before your trainer is set up. This helps us create an assistant that best fits your needs. It takes about two minutes. The setup is free."));
+  h.appendChild(vid("welcome", "Video: Chris Ward welcomes you (20 seconds)"));
   h.appendChild(el("p", { class: "help" }, "You stay in charge. We never ask for passwords. Your answers stay in this browser until you choose to send them."));
   navRow(h, next, true, "Begin");
 }
@@ -202,6 +213,12 @@ function ask(h, s) {
     });
     h.appendChild(ul);
   }
+  if (s.id === "q6") {
+    var pair = el("div", { class: "vidpair" });
+    pair.appendChild(vid("meet-sam", "Meet Sam, AI trainer (9 seconds)", "small"));
+    pair.appendChild(vid("meet-travis", "Meet Travis, AI trainer (8 seconds)", "small"));
+    h.insertBefore(pair, h.querySelector(".opts"));
+  }
   hesitance(h, s.id);
 }
 
@@ -223,6 +240,7 @@ function neStep(h, s) {
   var gm = A.neKind !== "outlookcom", list = gm ? GMAIL_STEPS : OUTLOOK_STEPS, st = list[s.i];
   h.appendChild(el("p", { class: "voice" }, (gm ? "Gmail" : "Outlook.com") + " · step " + (s.i + 1) + " of " + list.length));
   h.appendChild(el("h1", null, st.t));
+  if (gm && s.i === 0) h.appendChild(vid("gmail", "Video: make a free Gmail, step by step (28 seconds)"));
   if (st.link) { var a = el("a", { class: "go linkbtn", href: st.link[0], target: "_blank", rel: "noopener" }, st.link[1] + " (new tab)"); h.appendChild(a); }
   h.appendChild(el("p", { class: "seeq" }, "Did you see " + st.see + "?"));
   var row = el("div", { class: "nav" });
@@ -246,6 +264,7 @@ function handoff(h) {
   var hi = el("h1", { class: "warmh" }, "Hi, I'm here. How are you doing?");
   wrap.appendChild(el("p", { class: "who" }, trainer()));
   wrap.appendChild(hi);
+  wrap.appendChild(vid(trainer() === "Travis" ? "meet-travis" : "meet-sam", trainer() + ", your AI trainer, says hi", "small center"));
   var row = el("div", { class: "nav center" }), reply = el("p", { class: "reply", role: "status", "aria-live": "polite" });
   [["Good", "Love that. Let's keep it that way."], ["Busy", "Then let's give you some time back."]].forEach(function (o) {
     var b = el("button", { class: "go", type: "button" }, o[0]);
@@ -352,6 +371,9 @@ function result(h) {
     tabs.appendChild(b);
   });
   h.appendChild(tabs);
+  var DV = { grok: { phone: ["grok-phone", "Grok on your phone (23 seconds)"], computer: ["grok-computer", "Grok on your computer (20 seconds)"] },
+    claude: { mac: ["claude-mac", "Claude on a Mac (26 seconds)"], windows: ["claude-windows", "Claude on Windows (22 seconds)"], phone: ["claude-phone", "Claude on your phone (16 seconds)"] } }[tr][cur];
+  if (DV) h.appendChild(vid(DV[0], "Video: " + DV[1]));
 
   var list = STEPS[tr][cur], done = A.done || 0;
   var ol = el("ol", { class: "isteps" });
@@ -379,6 +401,7 @@ function result(h) {
 
   // copy box
   h.appendChild(el("h2", null, "Your free email helper"));
+  h.appendChild(vid("first-win", "Video: your first win (23 seconds)"));
   h.appendChild(el("p", { class: "help" }, "Copy this and paste it into " + (tr === "grok" ? "a new Grok chat." : "your Claude project instructions, or a new Claude chat.")));
   var AG = { id: "Email-Inbox", name: "Email & Inbox Agent" };
   var txt = PROMPT[tr].split("[NAME]").join(name) + window.GWAIWalk.walkthrough(tr, AG);
