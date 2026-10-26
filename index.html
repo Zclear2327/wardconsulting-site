@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <!-- Google Analytics 4 (Grow With AI property) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YE913MPL23"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YE913MPL23',{linker:{domains:['wardconsulting.ai','wardconsultingai.thrivecart.com']}});</script>
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','736129774422972');fbq('track','PageView');</script>
+<!-- Offer-button clicks: begin_checkout (GA4) / InitiateCheckout (Meta), value taken from the $ amount in the link -->
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="mailto:"],a[href*="thrivecart.com"]');if(!a)return;var h=decodeURIComponent(a.getAttribute('href')||'');var m=h.match(/\$([\d,]+(?:\.\d+)?)/);var v=m?parseFloat(m[1].replace(/,/g,'')):0;if(window.gtag)gtag('event','begin_checkout',{currency:'USD',value:v,item_name:a.textContent.trim().slice(0,100)});if(window.fbq)fbq('track','InitiateCheckout',{currency:'USD',value:v});});</script>
 <title>AI and Claude Training for Business Owners | Ward Consulting AI</title>
 <meta name="description" content="New to AI? Ward Consulting AI teaches business owners Claude, sets it up for you, and builds AI helpers that take repetitive work off your plate.">
 <link rel="canonical" href="https://wardconsulting.ai/">
