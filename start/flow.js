@@ -4,7 +4,7 @@
    Never asks for passwords, codes, card, bank or ID details. */
 (function () {
 "use strict";
-var CFG = { form_endpoint: "https://formsubmit.co/ajax/7fbd7e6f9b9178360b909504bd877f07", min_seconds_before_send: 10, hubspot_form_id: (window.HS && HS.formId) || "" /* set in shared/hubspot.js */ };
+var CFG = { form_endpoint: "https://formsubmit.co/ajax/7fbd7e6f9b9178360b909504bd877f07", min_seconds_before_send: 10, mailchimp_action: (typeof MC_ACTION !== "undefined" && MC_ACTION) || "" /* set in shared/leads.js */ };
 var KEY = "wc-intake-v3";
 var SECTIONS = ["Welcome", "About you", "Your setup", "Your trainer", "Your result"];
 var START = Date.now();
