@@ -15,9 +15,9 @@ var DAILY = {
   "Daily-Assistant": "brief me", "Content-Social": "plan my posts"
 };
 function steps(tool, agent) {
-  var app = tool === "grok" ? "Grok" : "Claude";
+  var app = tool === "grok" ? "Grok Bot" : "Claude";
   return [
-    "Sign in to " + app + (tool === "grok" ? " (a free X/Grok account is fine)" : " (the free plan is fine)") + ". You type your own password and codes.",
+    "Sign in to " + app + (tool === "grok" ? " (Grok Bot needs X Premium)" : " (the free plan is fine)") + ". You type your own password and codes.",
     "No email address yet? Your trainer walks you through a free Gmail at accounts.google.com/signup.",
     "Your trainer sets up your " + agent.name + " and tells you what it will do for you.",
     "Do a first real task together: " + FIRST_TASK[agent.id].replace(/\bI\b/g, "you").replace(/\bmy\b/g, "your").replace(/\bMY\b/g, "YOUR").replace(/\bme\b/g, "you") + ".",
@@ -28,7 +28,7 @@ function steps(tool, agent) {
 var BUILT_IN = { "Customer-Questions": 1, "Sales-Follow-Up": 1, "Daily-Assistant": 1, "Content-Social": 1 };
 // Trainer Agent's paid prompts carry their own 8 steps; mirror them in the checklist instead of adding ours.
 function builtInSteps(tool, agent) {
-  var app = tool === "grok" ? "Grok" : "Claude";
+  var app = tool === "grok" ? "Grok Bot" : "Claude";
   return [
     "Sign in to " + app + " (or create a free account). You type your own password.",
     "Paste the prompt as your first message, say hi, and tell your trainer Sam or Travis.",
@@ -42,7 +42,7 @@ function builtInSteps(tool, agent) {
 }
 function walkthrough(tool, agent) {
   if (BUILT_IN[agent.id]) return "";
-  var app = tool === "grok" ? "Grok" : "Claude";
+  var app = tool === "grok" ? "Grok Bot" : "Claude";
   var s = steps(tool, agent);
   return "\n\nTRAINER WALKTHROUGH (do this right after START, before anything else)\n" +
     "Walk me through setting up AND using this agent, one step per message. After each step, wait until I type \"done\" (or ask for help) before the next one.\n" +
@@ -64,8 +64,8 @@ function copyText(text) {
 }
 /* Builds: [Copy & open Grok/Claude] button + status line + checklist. */
 function openBlock(opts) { // {tool, agent:{id,name}, text}
-  var tool = opts.tool, app = tool === "grok" ? "Grok" : "Claude";
-  var url = tool === "grok" ? "https://grok.com" : "https://claude.ai/new";
+  var tool = opts.tool, app = tool === "grok" ? "Grok Bot" : "Claude";
+  var url = tool === "grok" ? "https://cursor.com/download/bot" : "https://claude.ai/new";
   var wrap = document.createElement("div"); wrap.className = "openblock";
   var b = document.createElement("a"); b.className = "go ghostgo btn primary"; b.href = url; b.target = "_blank"; b.rel = "noopener";
   b.textContent = opts.label || ("Copy prompt and open " + app);
