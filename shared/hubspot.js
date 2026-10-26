@@ -1,3 +1,5 @@
+/* RETIRED 2026-10-26: Chris chose not to use HubSpot ("i dont want to use hubspot find another way").
+   No page loads this file any more; shared/leads.js replaced it. Kept, not deleted (launch hardening v6 rule). */
 /* Grow With AI lead capture: one place for the HubSpot form, used by the setup flow (start/flow.js)
    and the waitlist (affiliates/wl.js). Launch hardening v6, item D.
    HubSpot portal 5372726 is the "Z Clear" portal. Until Chris pastes the form's GUID into formId,
