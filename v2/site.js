@@ -31,4 +31,11 @@ document.querySelectorAll('.track').forEach(t=>{const set=D[t.dataset.set];set.f
   document.getElementById('d-body').innerHTML='<table>'+Object.entries(d[2]).map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join('')+'</table><p class="small">A generic example from our template kit.</p>'};t.append(b)})});
 const tabs=[...document.querySelectorAll('[role=tab]')];tabs.forEach((tb,i)=>{tb.onclick=()=>{tabs.forEach(o=>{const on=o===tb;o.setAttribute('aria-selected',on);o.tabIndex=on?0:-1;document.getElementById(o.getAttribute('aria-controls')).hidden=!on});const first=document.querySelector('#'+tb.getAttribute('aria-controls')+' .node');first&&first.click()};
  tb.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const j=(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length;tabs[j].focus();tabs[j].click()}}});
-const f0=document.querySelector('.node');f0&&f0.click();})();
+const f0=document.querySelector('.node');f0&&f0.click();
+const book=document.getElementById('book');
+if(book&&(new URLSearchParams(location.search).get('interest')||'').toLowerCase()==='managed'){
+ const k=document.getElementById('channel');if(k)k.textContent='Managed service — coming soon / inquiry';
+ const lead=document.querySelector('#main .lead');if(lead)lead.textContent='You are asking about the hosted managed AI service. It is not open yet. Email us and a person will reply. This page will not charge you or create an account.';
+ const note=document.getElementById('interest-note');if(note)note.hidden=false;
+ book.href='mailto:hello@wardconsulting.ai?subject='+encodeURIComponent('Managed AI service inquiry');book.textContent='Email about the managed service';
+}})();
