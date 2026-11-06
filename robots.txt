@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /delete-later/
 
 Sitemap: https://wardconsulting.ai/sitemap.xml

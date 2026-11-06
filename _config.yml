@@ -1,0 +1,12 @@
+# GitHub Pages publishes this repository from the branch root.
+# .nojekyll was removed so this Jekyll build runs and honors exclude.
+# HTML, CSS, JS, and media are copied unchanged. Nothing here is a theme.
+exclude:
+  - delete-later
+  - delete-later/
+  - _staging
+  - _site
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
