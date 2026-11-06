@@ -71,12 +71,15 @@ var OUTLOOK_STEPS = [
 var OUTLOOK_HELP = ["Address taken? Add your town or a number.", "The puzzle won't load? Refresh the page and try again."];
 
 /* ---------- plan of screens ---------- */
+/* Chris, Nov 6: "set people up only on grok for now". The Claude branch stays (unused) so it can come back. */
+var GROK_ONLY = true;
 function baseTrack() {
+  if (GROK_ONLY) return "grok";
   if (A.q4a === "phone") return "grok";
   if (A.q4b === "chrome" && (A.q5a === "very" || A.q5b === "lot")) return "claude";
   return "grok";
 }
-function track() { var b = baseTrack(); return A.switched ? (b === "grok" ? "claude" : "grok") : b; }
+function track() { var b = baseTrack(); if (GROK_ONLY) return b; return A.switched ? (b === "grok" ? "claude" : "grok") : b; }
 function emailType() { return A.q3 === "none" ? (A.newEmail || "gmail") : A.q3; }
 function trainer() { return A.q6 || "Sam"; }
 
@@ -381,11 +384,11 @@ function result(h) {
   h.appendChild(el("h1", null, "Let's get your inbox sorted."));
   var sw = el("button", { class: "back", type: "button" }, "Prefer " + (tr === "grok" ? "Claude, the power path" : "Grok, the easy path") + "? Switch");
   sw.onclick = function () { A.switched = !A.switched; delete A.done; save(); render(); };
-  h.appendChild(sw);
+  if (!GROK_ONLY) h.appendChild(sw);
 
   var cost = el("div", { class: "note cost" });
   cost.appendChild(el("p", null, COST[tr]));
-  cost.appendChild(el("p", { class: "help", style: "margin:0" }, "Prices as of October 2026. Check x.ai/pricing or claude.com/pricing."));
+  cost.appendChild(el("p", { class: "help", style: "margin:0" }, "Prices as of October 2026. Check x.ai/pricing."));
   h.appendChild(cost);
 
   // device tabs
