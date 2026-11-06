@@ -91,9 +91,11 @@ function plan() {
     if (A.neKind) steps.forEach(function (s, i) { P.push({ k: "ne_step", sec: 2, i: i }); });
   }
   P.push({ k: "ask", id: "q4a" });
-  if (A.q4a && A.q4a !== "phone") P.push({ k: "ask", id: "q4b" });
-  P.push({ k: "ask", id: "q5a" }, { k: "ask", id: "q5b" });
-  if (A.q5a && A.q5b && A.q4b === "chrome") P.push({ k: "ask", id: "q5c" });
+  // Browser, comfort and add-on questions only chose Claude; with GROK_ONLY they are not asked.
+  if (!GROK_ONLY && A.q4a && A.q4a !== "phone") P.push({ k: "ask", id: "q4b" });
+  if (!GROK_ONLY) P.push({ k: "ask", id: "q5a" });
+  P.push({ k: "ask", id: "q5b" });
+  if (!GROK_ONLY && A.q5a && A.q5b && A.q4b === "chrome") P.push({ k: "ask", id: "q5c" });
   P.push({ k: "ask", id: "q6" }, { k: "handoff", sec: 3 }, { k: "reflect", sec: 3 }, { k: "result", sec: 4 });
   return P;
 }
