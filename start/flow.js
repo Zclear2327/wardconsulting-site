@@ -73,9 +73,10 @@ var OUTLOOK_HELP = ["Address taken? Add your town or a number.", "The puzzle won
 /* ---------- plan of screens ---------- */
 /* Chris, Nov 6: "set people up only on grok for now". The Claude branch stays (unused) so it can come back. */
 var GROK_ONLY = true;
-// TEAM_SEAT: people get a seat on the Ward Consulting AI Grok Business team instead of their own Grok account
-// (Chris, 2026-11-09). Set to false to go back to "use your own Grok account".
-var TEAM_SEAT = true;
+// TEAM_SEAT: when true, the setup flow asks for a seat on the Ward Consulting AI Grok Business team instead of
+// using the person's own Grok account. Chris, 2026-11-09: Grok team seats are now a $35/seat add-on for Pro
+// ($99.99) and Elite only; free setup users use their own free Grok account (grok.com or the free Grok app).
+var TEAM_SEAT = false;
 function baseTrack() {
   if (GROK_ONLY) return "grok";
   if (A.q4a === "phone") return "grok";
@@ -418,7 +419,7 @@ function seatBox(h) { // the seat request: one email, sent to us so we can invit
 }
 
 var COST = {
-  grok: TEAM_SEAT ? "Our setup is free, and so is your Grok seat for now: we add you to the Ward Consulting AI Grok team, so you don't need your own Grok plan. Send a screenshot of your inbox and get your first sorted list. Optional upgrade: Grok Bot can connect to your inbox directly. It needs X Premium, about $30 a month, paid to X (the $8 Plus plan doesn't include it)." : "Our setup is free, and Grok has a free plan. Start at grok.com or in the free Grok app: send a screenshot of your inbox and get your first sorted list. Optional upgrade: Grok Bot can connect to your inbox directly. It needs X Premium, about $30 a month, paid to X (the $8 Plus plan doesn't include it).",
+  grok: TEAM_SEAT ? "Our setup is free. Pro and Elite members can add a seat on the Ward Consulting AI Grok team for $35 a month, so you don't need your own Grok plan. Send a screenshot of your inbox and get your first sorted list. Optional upgrade: Grok Bot can connect to your inbox directly. It needs X Premium, about $30 a month, paid to X (the $8 Plus plan doesn't include it)." : "Our setup is free, and Grok has a free plan. Start at grok.com or in the free Grok app: send a screenshot of your inbox and get your first sorted list. Optional upgrade: Grok Bot can connect to your inbox directly. It needs X Premium, about $30 a month, paid to X (the $8 Plus plan doesn't include it).",
   claude: "Our setup is free, and Claude has a free plan. On Free, you can send a screenshot of your inbox, or connect Gmail or a Microsoft 365 work account (your admin may need to approve Microsoft 365 once). For Claude in Chrome, which can do the clicks you approve, you need Claude Pro, about $20 a month ($17 billed yearly), paid to Anthropic. Optional."
 };
 var UPGRADE = {
