@@ -1,0 +1,62 @@
+name: Site
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Build the GitHub Pages site
+        run: gem install jekyll -v 3.10.0 && jekyll build
+      - name: Published site has no family photos
+        run: |
+          set -euo pipefail
+          test -f _site/index.html
+          test -f _site/about/index.html
+          test -f _site/images/v2-chris-walmart-open-call.jpg
+          test -f _site/media/hologram-hero-welcome-v1-poster.jpg
+          test -f _site/CNAME
+          test -f _site/robots.txt
+          test ! -e _site/delete-later
+          test ! -e _site/.nojekyll
+          if find _site -type f \( -iname '*family*' -o -iname '*garden*' -o -iname '*harbor*' -o -iname 'chris-ward-bio*' \) \
+              \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.mp4' -o -iname '*.webm' -o -iname '*.mov' \) | grep -q .; then
+            echo "family photo still in the published site" >&2
+            find _site -type f \( -iname '*family*' -o -iname '*garden*' -o -iname '*harbor*' -o -iname 'chris-ward-bio*' \) \
+              \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.mp4' -o -iname '*.webm' -o -iname '*.mov' \) >&2
+            exit 1
+          fi
+          if grep -R -E 'ward-family|chris-garden|chris-harbor|chris-ward-bio|delete-later/family-photos' _site --include='*.html' --include='*.js' --include='*.css' --include='*.xml'; then
+            echo "page still references a moved family photo" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import os, re, pathlib, sys
+          root = pathlib.Path("_site")
+          missing = []
+          attr = re.compile(r"""(?:src|href|poster)=["']([^"']+)["']""")
+          for path in root.rglob("*"):
+              if path.suffix.lower() not in {".html", ".js", ".css"}:
+                  continue
+              text = path.read_text(encoding="utf-8", errors="replace")
+              for match in attr.finditer(text):
+                  url = match.group(1).split("#", 1)[0].split("?", 1)[0]
+                  if not url or url.startswith(("http://", "https://", "mailto:", "data:", "tel:")):
+                      continue
+                  if url.startswith("/"):
+                      target = root / url.lstrip("/")
+                  else:
+                      target = path.parent / url
+                  if not target.exists():
+                      missing.append(f"{path}: {url}")
+          if missing:
+              print("missing local assets:", file=sys.stderr)
+              print("\n".join(missing), file=sys.stderr)
+              sys.exit(1)
+          PY
