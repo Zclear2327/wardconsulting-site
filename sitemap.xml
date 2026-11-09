@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://wardconsulting.ai/</loc><lastmod>2026-10-15</lastmod></url>
-  <url><loc>https://wardconsulting.ai/start/</loc><lastmod>2026-10-15</lastmod></url>
-  <url><loc>https://wardconsulting.ai/terms/</loc></url>
-  <url><loc>https://wardconsulting.ai/privacy/</loc></url>
-  <url><loc>https://wardconsulting.ai/refund/</loc></url>
-  <url><loc>https://wardconsulting.ai/disclosures/</loc></url>
+  <url><loc>https://wardconsulting.ai/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://wardconsulting.ai/start/</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://wardconsulting.ai/services/</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://wardconsulting.ai/how-it-works/</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://wardconsulting.ai/about/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://wardconsulting.ai/contact/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://wardconsulting.ai/terms/</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://wardconsulting.ai/privacy/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://wardconsulting.ai/refund/</loc><lastmod>2026-11-08</lastmod></url>
+  <url><loc>https://wardconsulting.ai/disclosures/</loc><lastmod>2026-10-26</lastmod></url>
 </urlset>
