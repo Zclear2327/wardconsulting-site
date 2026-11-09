@@ -431,8 +431,25 @@ function deviceKey(tr, dev) {
   return dev || "windows";
 }
 
+// Counts a finished setup once per browser: a GoatCounter event (when on) and a short note to the form inbox.
+// No email, name or answers are sent; only the track, device, trainer and site.
+function logFinish(tr, site) {
+  if (meta.finishLogged) return;
+  meta.finishLogged = Date.now(); save();
+  if (window.wcCount) window.wcCount("setup-finished");
+  try {
+    var b = new FormData();
+    b.append("list", "setup-finished"); b.append("track", tr); b.append("device", A.q4a || ""); b.append("trainer", trainer());
+    b.append("site", site); b.append("page_url", location.href);
+    b.append("_subject", "Setup finished (" + site + ", " + tr + ", " + (A.q4a || "device not given") + ")");
+    b.append("_template", "table"); b.append("_honey", "");
+    fetch(CFG.form_endpoint, { method: "POST", body: b, headers: { Accept: "application/json" } }).catch(function () {});
+  } catch (e) {}
+}
+
 function result(h) {
   var tr = track(), name = trainer(), dev = A.viewDevice || A.q4a || "windows";
+  logFinish(tr, "wardconsulting");
   h.appendChild(el("p", { class: "who" }, "Your trainer: " + name + " · Your track: " + (tr === "grok" ? "Grok, the easy path" : "Claude, the power path")));
   h.appendChild(el("h1", null, "Let's get your inbox sorted."));
   var sw = el("button", { class: "back", type: "button" }, "Prefer " + (tr === "grok" ? "Claude, the power path" : "Grok, the easy path") + "? Switch");
