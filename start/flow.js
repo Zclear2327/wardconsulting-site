@@ -436,7 +436,7 @@ function deviceKey(tr, dev) {
 function logFinish(tr, site) {
   if (meta.finishLogged) return;
   meta.finishLogged = Date.now(); save();
-  if (window.wcCount) window.wcCount("setup-finished");
+  if (window.wcCount) window.wcCount("setup-finished"); else (window.__wcq = window.__wcq || []).push("setup-finished"); // counter loads after this script
   try {
     var b = new FormData();
     b.append("list", "setup-finished"); b.append("track", tr); b.append("device", A.q4a || ""); b.append("trainer", trainer());
