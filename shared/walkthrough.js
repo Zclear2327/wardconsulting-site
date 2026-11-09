@@ -30,7 +30,7 @@ var BUILT_IN = { "Customer-Questions": 1, "Sales-Follow-Up": 1, "Daily-Assistant
 function builtInSteps(tool, agent) {
   var app = tool === "grok" ? "Grok" : "Claude";
   return [
-    (tool === "grok" ? "Sign in to Grok with the email on your Grok team seat. You type your own codes." : "Sign in to " + app + " (or create a free account). You type your own password."),
+    (tool === "grok" ? "Sign in to Grok with your Grok account (members with a team seat: use the email on your seat). You type your own codes." : "Sign in to " + app + " (or create a free account). You type your own password."),
     "Paste the prompt as your first message, say hi, and tell your trainer Sam or Travis.",
     "Share your business info (typing, paste or screenshot). No passwords or account numbers.",
     "Your trainer builds the " + agent.name + " with you. Check it and say what to change.",
@@ -46,7 +46,7 @@ function walkthrough(tool, agent) {
   var s = steps(tool, agent);
   return "\n\nTRAINER WALKTHROUGH (do this right after START, before anything else)\n" +
     "Walk me through setting up AND using this agent, one step per message. After each step, wait until I type \"done\" (or ask for help) before the next one.\n" +
-    "Step 1 of 6: Check I'm signed in to " + app + ". If not, tell me how to sign in" + (tool === "grok" ? " with the email on my Grok team seat" : " or create a free account") + ". I type my own password and codes; never ask for them.\n" +
+    "Step 1 of 6: Check I'm signed in to " + app + ". If not, tell me how to sign in" + (tool === "grok" ? " with my Grok account, or create a free one (if I have a seat on the Ward Consulting AI Grok team, use the email on my seat)" : " or create a free account") + ". I type my own password and codes; never ask for them.\n" +
     "Step 2 of 6: Ask if I have an email address. If not, walk me through making a free Gmail at accounts.google.com/signup one screen at a time (I type my own password on Google's page).\n" +
     "Step 3 of 6: Tell me in two lines what you'll do for me as my " + agent.name + ", then run any setup steps above.\n" +
     "Step 4 of 6: First real task together: " + FIRST_TASK[agent.id] + ".\n" +
