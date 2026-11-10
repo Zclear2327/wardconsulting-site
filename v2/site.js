@@ -2,7 +2,7 @@
 (()=>{const c=document.getElementById('stars'),x=c.getContext('2d');let w,h,s=[];const R=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function rs(){w=c.width=innerWidth;h=c.height=innerHeight;s=Array.from({length:Math.min(220,w*h/6000|0)},()=>({x:Math.random()*w,y:Math.random()*h,z:Math.random()*.9+.1}))}
 function f(){x.clearRect(0,0,w,h);for(const p of s){x.fillStyle=`rgba(${p.z>.8?'255,211,110':'180,240,255'},${p.z})`;x.fillRect(p.x,p.y,p.z*2,p.z*2);if(!R){p.y+=p.z*.35;if(p.y>h){p.y=0;p.x=Math.random()*w}}}if(!R)requestAnimationFrame(f)}
-addEventListener('resize',()=>{rs();if(R)f()});rs();f();
+if(getComputedStyle(c).display!=='none'){addEventListener('resize',()=>{rs();if(R)f()});rs();f();}
 const m=document.querySelector('.menu'),n=document.getElementById('nav');m.onclick=()=>{const o=n.classList.toggle('open');m.setAttribute('aria-expanded',o)};
 document.querySelectorAll('.holo').forEach(fg=>{const v=fg.querySelector('video'),b=fg.querySelector('.snd');
  const io=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting&&!R){v.play().catch(()=>{})}else v.pause()}),{threshold:.35});io.observe(v);
