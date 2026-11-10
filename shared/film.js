@@ -6,7 +6,10 @@
   var fig = document.getElementById("launchfilm"); if (!fig) return;
   var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var tall = window.matchMedia("(max-width: 600px)");
-  var playBtn = fig.querySelector(".lf-play"), soundBtn = fig.querySelector(".lf-sound");
+  // The buttons can sit inside the figure, or anywhere in a bar marked data-for="launchfilm".
+  var bar = document.querySelector('[data-for="launchfilm"]') || fig;
+  var playBtn = bar.querySelector(".lf-play"), soundBtn = bar.querySelector(".lf-sound");
+  if (!playBtn || !soundBtn) return;
   function active() { return fig.querySelector(tall.matches ? ".lf-tall video" : ".lf-wide video"); }
   function list(v) { return (v.getAttribute("data-list") || "").split(/\s+/).filter(Boolean); }
   function label() {
