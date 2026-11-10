@@ -14,9 +14,14 @@ section.voyage{padding-block:8px 48px;border-top:0}
 .vy-copy h2{color:#FFFFFF;font-size:clamp(26px,3.6vw,46px);margin-top:10px}
 .vy-where{margin:12px 0 0;font-size:17px;color:#DCE7E2}
 .vy-label{display:inline-block;font:700 12.5px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#05080F;background:#9FE3D0;padding:6px 8px;border-radius:2px;margin-right:6px;vertical-align:2px}
-.vy-ship{position:absolute;z-index:2;width:clamp(96px,13vw,190px);height:auto;left:58%;top:22%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));transform:translateX(0) rotate(-6deg)}
-.vy-flame{transform-origin:58px 40px;animation:vyFlame .18s ease-in-out infinite alternate}
-@keyframes vyFlame{from{transform:scaleX(.82)}to{transform:scaleX(1.08)}}
+/* the ship: a rendered side view of our own rocket; engines face left, flames are drawn in CSS */
+.vy-ship{position:absolute;z-index:2;width:clamp(200px,36vw,480px);left:46%;top:24%;filter:drop-shadow(0 8px 18px rgba(0,0,0,.55));transform:translateX(0) rotate(-6deg)}
+.vy-ship img{display:block;width:100%;height:auto;position:relative;z-index:1}
+.vy-flame{position:absolute;z-index:0;right:calc(100% - 3%);width:22%;height:15%;border-radius:50%;
+  background:radial-gradient(ellipse at 100% 50%,#FFFFFF 0,#FFF1C9 18%,#FFC062 42%,rgba(255,122,61,.55) 64%,rgba(255,122,61,0) 78%);
+  transform-origin:100% 50%;animation:vyFlame .16s ease-in-out infinite alternate}
+.vy-flame.f1{top:VAR1}.vy-flame.f2{top:VAR2;width:26%}.vy-flame.f3{top:VAR3}
+@keyframes vyFlame{from{transform:scaleX(.85) scaleY(.92)}to{transform:scaleX(1.06) scaleY(1)}}
 .vy-stage.idle .vy-ship{animation:vyBob 4.5s ease-in-out infinite}
 @keyframes vyBob{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(6px,-8px) rotate(-4deg)}}
 /* arrival: fly in from the left */
@@ -37,7 +42,7 @@ section.voyage{padding-block:8px 48px;border-top:0}
   .vy-stage{aspect-ratio:4/3}
   .vy-stage::after{background:linear-gradient(0deg,rgba(4,8,14,.85) 0,rgba(4,8,14,.5) 45%,rgba(4,8,14,0) 75%)}
   .vy-copy{max-width:none;right:16px}
-  .vy-ship{left:46%;top:12%}
+  .vy-ship{left:30%;top:14%;width:62%}
   .vy-controls{flex-direction:column;align-items:stretch}
   .vy-pick button{flex:1}
   .vy-next{text-align:center}

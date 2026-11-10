@@ -345,17 +345,10 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
     <div class="vy-stage" data-world="1">
       <img class="vy-world w1" src="media/voyage/world-1.webp" width="2000" height="563" alt="World 1: an icy, rocky planet seen from orbit, with a large moon rising over a bright horizon.">
       <img class="vy-world w2" src="media/voyage/world-2.webp" width="2000" height="563" alt="World 2: a green world of moss-covered cliffs, with six waterfalls pouring into a lake under a pale moon." loading="lazy">
-      <svg class="vy-ship" viewBox="0 0 220 80" aria-hidden="true" focusable="false">
-        <defs>
-          <linearGradient id="vyBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C9D6D0"/></linearGradient>
-          <linearGradient id="vyFlame" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#FFF4D6"/><stop offset=".45" stop-color="#FFC75A"/><stop offset="1" stop-color="#FF7A3D" stop-opacity="0"/></linearGradient>
-        </defs>
-        <path class="vy-flame" d="M58 32 L2 40 L58 48 Z" fill="url(#vyFlame)"/>
-        <path d="M60 22 H150 C178 22 200 30 214 40 C200 50 178 58 150 58 H60 Z" fill="url(#vyBody)" stroke="#16201D" stroke-width="2"/>
-        <path d="M78 22 L58 6 H88 L104 22 Z M78 58 L58 74 H88 L104 58 Z" fill="#2F6B5A" stroke="#16201D" stroke-width="2"/>
-        <circle cx="170" cy="40" r="9" fill="#9FE3D0" stroke="#16201D" stroke-width="2"/>
-        <rect x="104" y="35" width="44" height="10" rx="2" fill="#2F6B5A"/>
-      </svg>
+      <div class="vy-ship" aria-hidden="true">
+        <span class="vy-flame f1"></span><span class="vy-flame f2"></span><span class="vy-flame f3"></span>
+        <img src="media/voyage/ship.webp" width="1200" height="240" alt="">
+      </div>
       <div class="vy-copy">
         <p class="eyebrow vy-eyebrow">Our ship: Grow With AI &middot; Ward Consulting AI</p>
         <h2 id="voyage-h">This is the machine. You choose where it goes.</h2>
