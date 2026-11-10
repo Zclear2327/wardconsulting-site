@@ -40,7 +40,7 @@ var EMAIL_OPTS = [
 var Q = {
   q1: { sec: 1, type: "text", text: "What kind of business do you run?", ph: "Type it, or tap one below", chips: ["Salon or spa", "Home services", "Contractor", "Retail shop", "Restaurant or food", "Real estate", "Events", "Professional services", "Other"] },
   q2: { sec: 1, type: "text", text: "What takes up too much of your week?", help: "Pick as many as you like.", multi: true, ph: "Anything else? Type it here (optional)", chips: ["Email", "Quotes and invoices", "Scheduling", "Follow-ups", "Customer questions", "Social media posts", "Bookkeeping"] },
-  q3: { sec: 2, type: "single", text: "Where does your work email live?", help: "Not sure? Check the address you send email from. Ending in @gmail.com means Gmail.", options: EMAIL_OPTS },
+  q3: { sec: 2, type: "single", multi: true, only: "none", text: "Where does your work email live?", help: "Pick all that you use. Not sure? Check the address you send email from. Ending in @gmail.com means Gmail.", options: EMAIL_OPTS },
   q4a: { sec: 2, type: "single", text: "What do you work on most days?", options: [{ v: "mac", label: "Mac" }, { v: "windows", label: "Windows computer" }, { v: "phone", label: "Mostly my phone" }] },
   q4b: { sec: 2, type: "single", text: "Which web browser do you use?", options: [{ v: "chrome", label: "Chrome" }, { v: "edge", label: "Edge" }, { v: "safari", label: "Safari" }, { v: "other", label: "Other / not sure" }] },
   q5a: { sec: 2, type: "single", text: "How comfortable are you with new apps?", options: [{ v: "start", label: "Just starting" }, { v: "getting", label: "Getting there" }, { v: "very", label: "Very comfortable" }] },
@@ -240,17 +240,45 @@ function ask(h, s) {
     inp.addEventListener("input", upd);
     inp.addEventListener("keydown", function (e) { if (e.key === "Enter") submit(); });
     upd();
+  } else if (q.multi) {
+    var picks = (A[s.id + "_all"] || (A[s.id] ? [A[s.id]] : [])).slice();
+    var ul = el("ul", { class: "opts", role: "list" }), btns = [], nb;
+    var paint = function () { btns.forEach(function (x) { x.b.setAttribute("aria-pressed", String(picks.indexOf(x.v) >= 0)); }); if (nb) nb.disabled = !picks.length; };
+    q.options.forEach(function (o) {
+      var li = el("li"), b = el("button", { class: "opt", type: "button" });
+      b.appendChild(el("span", { class: "tick", "aria-hidden": "true" }, "✓"));
+      b.appendChild(el("span", { class: "lab" }, o.label));
+      b.onclick = function () {
+        var i = picks.indexOf(o.v);
+        if (i >= 0) picks.splice(i, 1);
+        else if (o.v === q.only) picks = [o.v];                                  // "no email yet" stands alone
+        else { picks = picks.filter(function (v) { return v !== q.only; }); picks.push(o.v); }
+        paint();
+      };
+      btns.push({ b: b, v: o.v }); li.appendChild(b); ul.appendChild(li);
+    });
+    h.appendChild(ul);
+    nb = navRow(h, function () {
+      if (!picks.length) return;
+      var prev = A[s.id];
+      A[s.id + "_all"] = picks.slice(); A[s.id] = picks[0];   // the first pick stays the main one for the rest of the setup
+      if (s.id === "q3" && prev !== A.q3) { delete A.neKind; delete A.newEmail; }
+      save(); thanks("Thank you.", next);
+    }, false);
+    paint();
   } else {
     var ul = el("ul", { class: "opts", role: "list" });
     q.options.forEach(function (o) {
       var li = el("li");
-      var b = el("button", { class: "opt", type: "button", "aria-pressed": String(A[s.id] === o.v && (o.id ? A[s.id + "_either"] : !A[s.id + "_either"])) });
+      var b = el("button", { class: "opt", type: "button", "aria-pressed": String(o.id ? !!A[s.id + "_either"] : (A[s.id] === o.v && !A[s.id + "_either"])) });
       b.appendChild(el("span", { class: "tick", "aria-hidden": "true" }, "✓"));
       b.appendChild(el("span", { class: "lab" }, o.label));
       b.onclick = function () {
         var prevEmail = A.q3;
         A[s.id] = o.v;
-        if (s.id === "q6") A.q6_either = !!o.id;
+        if (s.id === "q6") { A.q6_either = !!o.id; if (o.id === "either") A.q6 = Math.random() < 0.5 ? "Sam" : "Travis"; // "Either is fine" = a fair coin, not always Sam
+          // Sam vs Travis test (Chris, Nov 10: "test both and then go with whatever people like the most")
+          if (window.wcCount) window.wcCount("trainer-" + A.q6.toLowerCase() + (A.q6_either ? "-either" : "-picked")); }
         if (s.id === "q3" && prevEmail !== o.v) { delete A.neKind; delete A.newEmail; }
         save(); thanks("Thank you.", next);
       };
@@ -331,7 +359,7 @@ function reflect(h) {
   var BIZ = { "Salon or spa": "a salon or spa", "Home services": "a home services business", "Contractor": "a contracting business", "Retail shop": "a retail shop",
     "Restaurant or food": "a restaurant or food business", "Real estate": "a real estate business", "Events": "an events business", "Professional services": "a professional services business" };
   var q1 = BIZ[A.q1] || short(lower1(A.q1), 70), q2 = short((A.q2 || "").toLowerCase(), 60);
-  h.appendChild(el("h1", null, "So you run " + q1 + ". " + (q2.charAt(0).toUpperCase() + q2.slice(1)) + (/,/.test(q2) ? " take" : " takes") + " up too much of your week. You're on " + (EMAIL_NAME[emailType()] || "your email") + " and " + (DEVICE_NAME[A.q4a] || "your computer") + ". Got it."));
+  h.appendChild(el("h1", null, "So you run " + q1 + ". " + (q2.charAt(0).toUpperCase() + q2.slice(1)) + (/,/.test(q2) ? " take" : " takes") + " up too much of your week. You're on " + (DEVICE_NAME[A.q4a] || "your computer") + " and use " + emailsLabel() + ". Got it."));
   h.appendChild(el("p", null, "Here's the simplest way to get your inbox sorted."));
   navRow(h, next, true, "Show me");
 }
@@ -449,6 +477,7 @@ function logFinish(tr, site) {
   if (meta.finishLogged) return;
   meta.finishLogged = Date.now(); save();
   if (window.wcCount) window.wcCount("setup-finished"); else (window.__wcq = window.__wcq || []).push("setup-finished"); // counter loads after this script
+  var tk = "finished-" + trainer().toLowerCase(); if (window.wcCount) window.wcCount(tk); else window.__wcq.push(tk); // Sam vs Travis: who gets people to the end
   try {
     var b = new FormData();
     b.append("list", "setup-finished"); b.append("track", tr); b.append("device", A.q4a || ""); b.append("trainer", trainer());
@@ -461,6 +490,12 @@ function logFinish(tr, site) {
 
 // The questionnaire answers come to us once, as soon as the questions are done (Chris, Nov 10: "I want that
 // auto sent to us"). Never the person's name or email: only what they told us about the work.
+function emailsLabel() {
+  var all = A.q3_all && A.q3_all.length ? A.q3_all : [A.q3];
+  var names = all.map(function (v) { return v === "none" ? null : (v === "other" && A.q3_text) || EMAIL_NAME[v] || null; }).filter(Boolean);
+  if (!names.length) return EMAIL_NAME[emailType()] || "your email";
+  return names.length === 1 ? names[0] : names.slice(0, -1).join(", ") + " and " + names[names.length - 1];
+}
 function sendAnswers() {
   if (meta.answersSent) return;
   meta.answersSent = Date.now(); save();
@@ -468,8 +503,8 @@ function sendAnswers() {
     var b = new FormData();
     b.append("list", "setup-answers"); b.append("site", "wardconsulting");
     b.append("business", (A.q1 || "").slice(0, 120)); b.append("takes_too_much_time", (A.q2 || "").slice(0, 240));
-    b.append("email_type", emailType() || ""); b.append("device", A.q4a || ""); b.append("ai_experience", A.q5b || "");
-    b.append("trainer", trainer()); b.append("page_url", location.href);
+    b.append("email_type", (A.q3_all || [emailType()]).join(", ")); b.append("device", A.q4a || ""); b.append("ai_experience", A.q5b || "");
+    b.append("trainer", trainer()); b.append("trainer_how", A.q6_either ? "either (random)" : "picked"); b.append("page_url", location.href);
     b.append("_subject", "Setup answers (wardconsulting): " + (A.q1 || "business not given").slice(0, 60));
     b.append("_template", "table"); b.append("_honey", "");
     fetch(CFG.form_endpoint, { method: "POST", body: b, headers: { Accept: "application/json" } }).catch(function () {});
