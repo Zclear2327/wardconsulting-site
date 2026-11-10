@@ -85,9 +85,10 @@
     var g = ctx.createRadialGradient(c.x, c.y, 2, c.x, c.y, 120 + 60 * k);
     g.addColorStop(0, "rgba(255,255,255," + 0.55 * k + ")"); g.addColorStop(0.35, "rgba(159,227,208," + 0.25 * k + ")"); g.addColorStop(1, "rgba(159,227,208,0)");
     ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(c.x, c.y, 120 + 60 * k, 60 + 20 * k, 0, 0, Math.PI * 2); ctx.fill();
-    var wake = ctx.createLinearGradient(c.tail, 0, c.tail - w * 0.5, 0);
-    wake.addColorStop(0, "rgba(255,190,140," + 0.22 * k + ")"); wake.addColorStop(1, "rgba(255,190,140,0)");
-    ctx.fillStyle = wake; ctx.fillRect(c.tail - w * 0.5, c.y - 40 - 30 * k, w * 0.5, 80 + 60 * k);
+    ctx.save(); ctx.translate(c.tail, c.y); ctx.scale(1, 0.18);
+    var wake = ctx.createRadialGradient(0, 0, 0, 0, 0, w * 0.4);
+    wake.addColorStop(0, "rgba(255,190,140," + 0.16 * k + ")"); wake.addColorStop(1, "rgba(255,190,140,0)");
+    ctx.fillStyle = wake; ctx.beginPath(); ctx.arc(0, 0, w * 0.4, 0, Math.PI * 2); ctx.fill(); ctx.restore();
 
     // White flash at the jump, then the new world.
     if (!swapped && p >= swapAt) { swapped = true; show(target); say("Hyper speed", "Arriving."); }
