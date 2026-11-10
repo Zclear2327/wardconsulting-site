@@ -458,14 +458,40 @@ function result(h) {
     windows: "On Windows: press the Windows key + Shift + S, then drag a box around your inbox.",
     phone: "On a phone: press the side button and volume up together." }[A.q4a] || "On a Mac: Shift + Command + 4. On Windows: Windows key + Shift + S. On a phone: side button + volume up.";
   var GROK = "https://grok.com";
+  var MISSION = "../media/missions/";
   var S = [
     { h: "Open Grok.", p: "Grok is the free AI app your helper runs in. Tap the button. It opens in a new tab, so this page stays here.", link: [GROK, "Open grok.com"], q: "Do you see Grok's page?" },
     { h: "Sign in, or make a free account.", p: "Click Sign up or Log in on Grok's page. You type your own password and codes there. We never see them.", link: [GROK, "Open grok.com again"], q: "Are you signed in and looking at a chat box?" },
+    { ship: "mission-1-boosters", tag: "Stage 1 complete", h: "You're signed in. The first booster drops away." },
     { h: "Copy your email helper.", p: "Tap the button. It copies your helper so you can paste it into Grok.", copy: true, q: "Did the button say Copied?" },
     { h: "Paste it into Grok and press send.", p: "Go back to the Grok tab. Click the chat box, paste (Ctrl + V, or Command + V on a Mac, or press and hold on a phone), then press send.", link: [GROK, "Go to grok.com"], q: "Did " + name + " say “Hi, I'm here”?" },
+    { ship: "mission-2-hyperspeed", tag: "Stage 2 complete", h: "Your helper is on board. Ready for hyper speed." },
     { h: "Send a screenshot of your inbox.", p: "When " + name + " asks, take a screenshot of your inbox list and add it to the Grok chat. " + SHOT, q: "Did " + name + " sort your inbox into groups?" }
   ];
-  var bar = el("p", { class: "voice" }, r < S.length ? "Step " + (r + 1) + " of " + S.length : "All done");
+  var TOTAL = S.filter(function (x) { return !x.ship; }).length;
+  function stepNo(i) { return S.slice(0, i + 1).filter(function (x) { return !x.ship; }).length; }
+  // The ship: a short film between steps. Plays on the tap that opened it; never on its own.
+  function shipFilm(stem, label) {
+    var f = el("figure", { class: "shipfilm" });
+    var v = el("video", { controls: "", playsinline: "", preload: "metadata", poster: MISSION + stem + "-poster.jpg", "aria-label": "Ship film: " + label });
+    v.appendChild(el("source", { src: MISSION + stem + ".mp4", type: "video/mp4" }));
+    f.appendChild(v);
+    var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!still) setTimeout(function () { v.play().catch(function () { v.muted = true; v.play().catch(function () {}); }); }, 0);
+    if (window.wcCount) window.wcCount(stem);
+    return f;
+  }
+  if (r < S.length && S[r].ship) {
+    var m = S[r];
+    h.appendChild(el("p", { class: "voice" }, m.tag));
+    h.appendChild(el("h1", null, m.h));
+    h.appendChild(shipFilm(m.ship, m.h));
+    var mr = el("div", { class: "nav" }), mg = el("button", { class: "go", type: "button" }, "Continue");
+    mg.onclick = function () { A.rs = r + 1; save(); render(); window.scrollTo(0, 0); };
+    mr.appendChild(mg); h.appendChild(mr);
+    return;
+  }
+  var bar = el("p", { class: "voice" }, r < S.length ? "Step " + stepNo(r) + " of " + TOTAL : "Mission complete");
   h.appendChild(bar);
   if (r < S.length) {
     var st = S[r];
@@ -490,9 +516,8 @@ function result(h) {
   }
   // finished
   logFinish(tr, "wardconsulting");
-  h.appendChild(el("h1", null, "Nice work. Your free email helper is set up."));
-  h.appendChild(el("p", null, name + " will keep helping in that Grok chat. Come back to it any time."));
-  h.appendChild(el("p", null, "One next step: the free training shows you what else your helper can do, one step at a time."));
+  h.appendChild(el("h1", null, "You made the jump. Your free email helper is set up."));
+  h.appendChild(shipFilm("mission-3-arrival-family", "You made the jump"));
   h.appendChild(el("a", { class: "linkbtn go", href: "https://zclear2327.github.io/grow-with-ai/train/grok/" }, "Start the free Grok training"));
   var more = el("details", { class: "stuck" }); more.appendChild(el("summary", null, "Want more helpers? See the plans"));
   more.appendChild(el("p", null, "Starter ($29.99 a month) adds 1 paid agent. Pro ($99.99) adds all 4. Cancel anytime."));
