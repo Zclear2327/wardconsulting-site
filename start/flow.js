@@ -1,6 +1,7 @@
 /* Grow With AI free setup flow.
    One question per screen. A formal setup voice asks; then the trainer (Sam or Travis) takes over.
-   Answers stay in this browser (localStorage) until the visitor chooses to send them.
+   Answers are kept in this browser (localStorage); when the questions are done they are sent to us once
+   (sendAnswers: no name or email). Name and email are sent only if the visitor chooses to.
    Never asks for passwords, codes, card, bank or ID details. */
 (function () {
 "use strict";
@@ -37,8 +38,8 @@ var EMAIL_OPTS = [
   { v: "none", label: "I don't have an email address yet" }
 ];
 var Q = {
-  q1: { sec: 1, type: "text", text: "What kind of business do you run?", ph: "For example: a house-cleaning business in Ogden" },
-  q2: { sec: 1, type: "text", text: "What takes up too much of your week?", chips: ["Email", "Quotes and invoices", "Scheduling", "Follow-ups", "Other"] },
+  q1: { sec: 1, type: "text", text: "What kind of business do you run?", ph: "Type it, or tap one below", chips: ["Salon or spa", "Home services", "Contractor", "Retail shop", "Restaurant or food", "Real estate", "Events", "Professional services", "Other"] },
+  q2: { sec: 1, type: "text", text: "What takes up too much of your week?", help: "Pick as many as you like.", multi: true, ph: "Anything else? Type it here (optional)", chips: ["Email", "Quotes and invoices", "Scheduling", "Follow-ups", "Customer questions", "Social media posts", "Bookkeeping"] },
   q3: { sec: 2, type: "single", text: "Where does your work email live?", help: "Not sure? Check the address you send email from. Ending in @gmail.com means Gmail.", options: EMAIL_OPTS },
   q4a: { sec: 2, type: "single", text: "What do you work on most days?", options: [{ v: "mac", label: "Mac" }, { v: "windows", label: "Windows computer" }, { v: "phone", label: "Mostly my phone" }] },
   q4b: { sec: 2, type: "single", text: "Which web browser do you use?", options: [{ v: "chrome", label: "Chrome" }, { v: "edge", label: "Edge" }, { v: "safari", label: "Safari" }, { v: "other", label: "Other / not sure" }] },
@@ -162,8 +163,9 @@ function render() {
 }
 function go(n) { step += n; save(); render(); window.scrollTo(0, 0); }
 function next() { go(1); }
+var RESULT_SKIP = function () { return false; };
 function back() {
-  var cur = plan()[step]; if (cur && cur.k === "result" && (A.rs || 0) > 0) { A.rs = A.rs - 1; save(); render(); window.scrollTo(0, 0); return; }
+  var cur = plan()[step]; if (cur && cur.k === "result" && (A.rs || 0) > 0) { var i = A.rs - 1; while (i > 0 && RESULT_SKIP(i)) i--; A.rs = i; save(); render(); window.scrollTo(0, 0); return; }
   var P = plan(), prev = P[step - 1];
   if (prev && prev.k === "ask") meta.backs[prev.id] = (meta.backs[prev.id] || 0) + 1;
   go(-1);
@@ -198,7 +200,7 @@ function welcome(h) {
   h.appendChild(el("p", null, "We'd like to ask you a few basic questions before your trainer is set up. This helps us create an assistant that best fits your needs. Your first win takes about 10 minutes, and the full setup about 20. The setup is free."));
   h.appendChild(vid("welcome", "Video: Chris Ward welcomes you (20 seconds)"));
   h.appendChild(el("p", { class: "help" }, "Available in English in the US and Canada, except Quebec for now (no French version yet)."));
-  h.appendChild(el("p", { class: "help" }, "You stay in charge. We never ask for passwords. Your answers stay in this browser until you choose to send them."));
+  h.appendChild(el("p", { class: "help" }, "You stay in charge. We never ask for passwords. When you finish the questions, your answers come to us so we can help. Your name and email only come to us if you choose to send them."));
   navRow(h, next, true, "Begin");
 }
 
@@ -209,22 +211,28 @@ function ask(h, s) {
   if (q.help) h.appendChild(el("p", { class: "help" }, q.help));
   if (q.type === "text") {
     var inp = el("input", { type: "text", maxlength: "120", "aria-labelledby": "qh", autocomplete: "off", placeholder: q.ph || "" });
-    inp.value = A[s.id] || "";
+    var picked = q.multi ? (A[s.id + "_picks"] || []).slice() : [];
+    inp.value = q.multi ? (A[s.id + "_extra"] || "") : (A[s.id] || "");
     h.appendChild(inp);
     var count = el("p", { class: "help count", "aria-live": "polite" }); h.appendChild(count);
     if (q.chips) {
       var chips = el("div", { class: "chips", role: "group", "aria-label": "Suggestions" });
       q.chips.forEach(function (c) {
-        var b = el("button", { class: "chipbtn", type: "button" }, c);
-        b.onclick = function () { inp.value = c === "Other" ? "" : c; inp.focus(); upd(); };
+        var b = el("button", { class: "chipbtn", type: "button", "aria-pressed": String(q.multi ? picked.indexOf(c) >= 0 : false) }, c);
+        b.onclick = function () {
+          if (q.multi) { var i = picked.indexOf(c); if (i >= 0) picked.splice(i, 1); else picked.push(c); b.setAttribute("aria-pressed", String(i < 0)); upd(); return; }
+          inp.value = c === "Other" ? "" : c; inp.focus(); upd();
+        };
         chips.appendChild(b);
       });
       h.appendChild(chips);
     }
     var nb;
-    var upd = function () { var v = inp.value.trim(); nb.disabled = !v; count.textContent = (120 - inp.value.length) + " characters left"; };
+    var upd = function () { var v = inp.value.trim(); nb.disabled = !v && !picked.length; count.textContent = (120 - inp.value.length) + " characters left"; };
     var submit = function () {
-      var v = inp.value.trim().slice(0, 120); if (!v) return;
+      var v = inp.value.trim().slice(0, 120);
+      if (q.multi) { A[s.id + "_picks"] = picked.slice(); A[s.id + "_extra"] = v; v = picked.concat(v ? [v] : []).join(", "); }
+      if (!v) return;
       A[s.id] = v; save();
       thanks(s.id === "q1" && v.length > 80 ? "Thank you, that's what I needed." : "Thank you.", next);
     };
@@ -320,8 +328,10 @@ function short(s, n) { s = s || ""; return s.length > n ? s.slice(0, n - 1).repl
 
 function reflect(h) {
   h.appendChild(el("p", { class: "who" }, trainer()));
-  var q1 = short(lower1(A.q1), 70), q2 = short(lower1(A.q2), 50);
-  h.appendChild(el("h1", null, "So you run " + q1 + ". " + (q2.charAt(0).toUpperCase() + q2.slice(1)) + " takes up too much of your week. You're on " + (EMAIL_NAME[emailType()] || "your email") + " and " + (DEVICE_NAME[A.q4a] || "your computer") + ". Got it."));
+  var BIZ = { "Salon or spa": "a salon or spa", "Home services": "a home services business", "Contractor": "a contracting business", "Retail shop": "a retail shop",
+    "Restaurant or food": "a restaurant or food business", "Real estate": "a real estate business", "Events": "an events business", "Professional services": "a professional services business" };
+  var q1 = BIZ[A.q1] || short(lower1(A.q1), 70), q2 = short((A.q2 || "").toLowerCase(), 60);
+  h.appendChild(el("h1", null, "So you run " + q1 + ". " + (q2.charAt(0).toUpperCase() + q2.slice(1)) + (/,/.test(q2) ? " take" : " takes") + " up too much of your week. You're on " + (EMAIL_NAME[emailType()] || "your email") + " and " + (DEVICE_NAME[A.q4a] || "your computer") + ". Got it."));
   h.appendChild(el("p", null, "Here's the simplest way to get your inbox sorted."));
   navRow(h, next, true, "Show me");
 }
@@ -449,7 +459,25 @@ function logFinish(tr, site) {
   } catch (e) {}
 }
 
+// The questionnaire answers come to us once, as soon as the questions are done (Chris, Nov 10: "I want that
+// auto sent to us"). Never the person's name or email: only what they told us about the work.
+function sendAnswers() {
+  if (meta.answersSent) return;
+  meta.answersSent = Date.now(); save();
+  try {
+    var b = new FormData();
+    b.append("list", "setup-answers"); b.append("site", "wardconsulting");
+    b.append("business", (A.q1 || "").slice(0, 120)); b.append("takes_too_much_time", (A.q2 || "").slice(0, 240));
+    b.append("email_type", emailType() || ""); b.append("device", A.q4a || ""); b.append("ai_experience", A.q5b || "");
+    b.append("trainer", trainer()); b.append("page_url", location.href);
+    b.append("_subject", "Setup answers (wardconsulting): " + (A.q1 || "business not given").slice(0, 60));
+    b.append("_template", "table"); b.append("_honey", "");
+    fetch(CFG.form_endpoint, { method: "POST", body: b, headers: { Accept: "application/json" } }).catch(function () {});
+  } catch (e) {}
+}
+
 function result(h) {
+  sendAnswers();
   // One step per screen (Chris, Nov 10: "do one step at a time so it does not get confusing").
   var tr = track(), name = trainer(), r = A.rs || 0;
   var AG = { id: "Email-Inbox", name: "Email & Inbox Agent" };
@@ -460,16 +488,22 @@ function result(h) {
   var GROK = "https://grok.com";
   var MISSION = "../media/missions/";
   var S = [
-    { h: "Open Grok.", p: "Grok is the free AI app your helper runs in. Tap the button. It opens in a new tab, so this page stays here.", link: [GROK, "Open grok.com"], q: "Do you see Grok's page?" },
-    { h: "Sign in, or make a free account.", p: "Click Sign up or Log in on Grok's page. You type your own password and codes there. We never see them.", link: [GROK, "Open grok.com again"], q: "Are you signed in and looking at a chat box?" },
+    { choose: true, h: "Do you already have Grok?", p: "Grok is the free AI app your helper runs in." },
+    { noGrok: true, h: "Open Grok.", p: "Grok is the free AI app your helper runs in. Tap the button. It opens in a new tab, so this page stays here.", link: [GROK, "Open grok.com"], q: "Do you see Grok's page?" },
+    { noGrok: true, h: "Sign in, or make a free account.", p: "Click Sign up or Log in on Grok's page. You type your own password and codes there. We never see them.", link: [GROK, "Open grok.com again"], q: "Are you signed in and looking at a chat box?" },
     { ship: "mission-1-boosters", tag: "Stage 1 complete", h: "You're signed in. The first booster drops away." },
     { h: "Copy your email helper.", p: "Tap the button. It copies your helper so you can paste it into Grok.", copy: true, q: "Did the button say Copied?" },
     { h: "Paste it into Grok and press send.", p: "Go back to the Grok tab. Click the chat box, paste (Ctrl + V, or Command + V on a Mac, or press and hold on a phone), then press send.", link: [GROK, "Go to grok.com"], q: "Did " + name + " say “Hi, I'm here”?" },
     { ship: "mission-2-hyperspeed", tag: "Stage 2 complete", h: "Your helper is on board. Ready for hyper speed." },
     { h: "Send a screenshot of your inbox.", p: "When " + name + " asks, take a screenshot of your inbox list and add it to the Grok chat. " + SHOT, q: "Did " + name + " sort your inbox into groups?" }
   ];
-  var TOTAL = S.filter(function (x) { return !x.ship; }).length;
-  function stepNo(i) { return S.slice(0, i + 1).filter(function (x) { return !x.ship; }).length; }
+  // With Grok already, the open and sign-in steps are skipped.
+  function shown(x) { return !(A.hasGrok && x.noGrok); }
+  RESULT_SKIP = function (i) { return !!(S[i] && !shown(S[i])); };
+  var counted = function (x) { return !x.ship && !x.choose && shown(x); };
+  var TOTAL = S.filter(counted).length;
+  function stepNo(i) { return S.slice(0, i + 1).filter(counted).length; }
+  function goTo(i) { while (i < S.length && !shown(S[i])) i++; A.rs = i; save(); render(); window.scrollTo(0, 0); }
   // The ship: a short film between steps. Plays on the tap that opened it; never on its own.
   function shipFilm(stem, label) {
     var f = el("figure", { class: "shipfilm" });
@@ -481,13 +515,25 @@ function result(h) {
     if (window.wcCount) window.wcCount(stem);
     return f;
   }
+  if (r < S.length && S[r].choose) {
+    h.appendChild(el("p", { class: "voice" }, "One quick question"));
+    h.appendChild(el("h1", null, S[r].h));
+    h.appendChild(el("p", null, S[r].p));
+    var cr = el("div", { class: "nav" });
+    var yes = el("button", { class: "go", type: "button" }, "Yes, I have Grok");
+    yes.onclick = function () { A.hasGrok = true; goTo(r + 1); };
+    var no = el("button", { class: "go", type: "button" }, "No, not yet");
+    no.onclick = function () { A.hasGrok = false; goTo(r + 1); };
+    cr.appendChild(yes); cr.appendChild(no); h.appendChild(cr);
+    return;
+  }
   if (r < S.length && S[r].ship) {
     var m = S[r];
     h.appendChild(el("p", { class: "voice" }, m.tag));
     h.appendChild(el("h1", null, m.h));
     h.appendChild(shipFilm(m.ship, m.h));
     var mr = el("div", { class: "nav" }), mg = el("button", { class: "go", type: "button" }, "Continue");
-    mg.onclick = function () { A.rs = r + 1; save(); render(); window.scrollTo(0, 0); };
+    mg.onclick = function () { goTo(r + 1); };
     mr.appendChild(mg); h.appendChild(mr);
     return;
   }
@@ -497,7 +543,7 @@ function result(h) {
     var st = S[r];
     h.appendChild(el("h1", null, st.h));
     h.appendChild(el("p", null, st.p));
-    if (r === 0) h.appendChild(el("p", { class: "help" }, "It's free. Grok's free plan is all you need for this."));
+    if (S[r].h === "Open Grok.") h.appendChild(el("p", { class: "help" }, "It's free. Grok's free plan is all you need for this."));
     if (st.link) { var a = el("a", { class: "linkbtn go", href: st.link[0], target: "_blank", rel: "noopener" }, st.link[1] + " (new tab)"); h.appendChild(a); }
     if (st.copy) {
       var pre = el("pre", { class: "copybox", tabindex: "0", "aria-label": "Your free email helper text" }, txt);
@@ -509,7 +555,7 @@ function result(h) {
     h.appendChild(el("p", { class: "seeq" }, st.q));
     var row = el("div", { class: "nav" });
     var ok = el("button", { class: "go", type: "button" }, "Yes, next step");
-    ok.onclick = function () { A.rs = r + 1; save(); render(); window.scrollTo(0, 0); };
+    ok.onclick = function () { goTo(r + 1); };
     row.appendChild(ok); h.appendChild(row);
     h.appendChild(el("p", { class: "help" }, "Stuck? Email hello@wardconsulting.ai and tell us which step you're on. Never send us passwords."));
     return;
