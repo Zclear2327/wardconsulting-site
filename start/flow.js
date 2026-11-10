@@ -270,13 +270,15 @@ function ask(h, s) {
     var ul = el("ul", { class: "opts", role: "list" });
     q.options.forEach(function (o) {
       var li = el("li");
-      var b = el("button", { class: "opt", type: "button", "aria-pressed": String(A[s.id] === o.v && (o.id ? A[s.id + "_either"] : !A[s.id + "_either"])) });
+      var b = el("button", { class: "opt", type: "button", "aria-pressed": String(o.id ? !!A[s.id + "_either"] : (A[s.id] === o.v && !A[s.id + "_either"])) });
       b.appendChild(el("span", { class: "tick", "aria-hidden": "true" }, "✓"));
       b.appendChild(el("span", { class: "lab" }, o.label));
       b.onclick = function () {
         var prevEmail = A.q3;
         A[s.id] = o.v;
-        if (s.id === "q6") A.q6_either = !!o.id;
+        if (s.id === "q6") { A.q6_either = !!o.id; if (o.id === "either") A.q6 = Math.random() < 0.5 ? "Sam" : "Travis"; // "Either is fine" = a fair coin, not always Sam
+          // Sam vs Travis test (Chris, Nov 10: "test both and then go with whatever people like the most")
+          if (window.wcCount) window.wcCount("trainer-" + A.q6.toLowerCase() + (A.q6_either ? "-either" : "-picked")); }
         if (s.id === "q3" && prevEmail !== o.v) { delete A.neKind; delete A.newEmail; }
         save(); thanks("Thank you.", next);
       };
@@ -475,6 +477,7 @@ function logFinish(tr, site) {
   if (meta.finishLogged) return;
   meta.finishLogged = Date.now(); save();
   if (window.wcCount) window.wcCount("setup-finished"); else (window.__wcq = window.__wcq || []).push("setup-finished"); // counter loads after this script
+  var tk = "finished-" + trainer().toLowerCase(); if (window.wcCount) window.wcCount(tk); else window.__wcq.push(tk); // Sam vs Travis: who gets people to the end
   try {
     var b = new FormData();
     b.append("list", "setup-finished"); b.append("track", tr); b.append("device", A.q4a || ""); b.append("trainer", trainer());
@@ -501,7 +504,7 @@ function sendAnswers() {
     b.append("list", "setup-answers"); b.append("site", "wardconsulting");
     b.append("business", (A.q1 || "").slice(0, 120)); b.append("takes_too_much_time", (A.q2 || "").slice(0, 240));
     b.append("email_type", (A.q3_all || [emailType()]).join(", ")); b.append("device", A.q4a || ""); b.append("ai_experience", A.q5b || "");
-    b.append("trainer", trainer()); b.append("page_url", location.href);
+    b.append("trainer", trainer()); b.append("trainer_how", A.q6_either ? "either (random)" : "picked"); b.append("page_url", location.href);
     b.append("_subject", "Setup answers (wardconsulting): " + (A.q1 || "business not given").slice(0, 60));
     b.append("_template", "table"); b.append("_honey", "");
     fetch(CFG.form_endpoint, { method: "POST", body: b, headers: { Accept: "application/json" } }).catch(function () {});
