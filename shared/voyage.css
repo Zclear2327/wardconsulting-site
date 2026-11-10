@@ -1,6 +1,9 @@
 /* The voyage: our ship (Grow With AI / Ward Consulting AI) flying between worlds.
    Uses the page's own tokens (--ink, --muted, --accent, --display), so it fits any theme. */
-section.voyage{padding-block:8px 48px;border-top:0}
+section.voyage{padding-block:8px 40px;border-top:0}
+.mission-tag{margin:0 0 12px}
+.mission-step{margin:0 0 16px}
+.mission-line{margin:8px 0 0;color:var(--muted);font-size:18px;max-width:40em}
 .vy-stage{position:relative;overflow:hidden;border-radius:4px;background:#05080F;aspect-ratio:2000/563;isolation:isolate}
 .vy-world{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.1s ease}
 .vy-world.w1{object-position:62% 50%}
