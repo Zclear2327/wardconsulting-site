@@ -1,0 +1,48 @@
+/* The voyage: our ship (Grow With AI / Ward Consulting AI) flying between worlds.
+   Uses the page's own tokens (--ink, --muted, --accent, --display), so it fits any theme. */
+section.voyage{padding-block:8px 48px;border-top:0}
+.vy-stage{position:relative;overflow:hidden;border-radius:4px;background:#05080F;aspect-ratio:2000/563;isolation:isolate}
+.vy-world{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.1s ease}
+.vy-world.w1{object-position:62% 50%}
+.vy-world.w2{object-position:50% 60%;opacity:0}
+.vy-stage[data-world="2"] .w1{opacity:0}
+.vy-stage[data-world="2"] .w2{opacity:1}
+/* shade under the text so it stays readable on both worlds */
+.vy-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,8,14,.82) 0,rgba(4,8,14,.55) 34%,rgba(4,8,14,0) 62%);z-index:1;pointer-events:none}
+.vy-copy{position:absolute;left:clamp(16px,4vw,48px);bottom:clamp(16px,4vw,44px);z-index:3;max-width:min(30em,52%);color:#F4F7F5}
+.vy-eyebrow{color:#E6C27A}
+.vy-copy h2{color:#FFFFFF;font-size:clamp(26px,3.6vw,46px);margin-top:10px}
+.vy-where{margin:12px 0 0;font-size:17px;color:#DCE7E2}
+.vy-label{display:inline-block;font:700 12.5px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#05080F;background:#9FE3D0;padding:6px 8px;border-radius:2px;margin-right:6px;vertical-align:2px}
+.vy-ship{position:absolute;z-index:2;width:clamp(96px,13vw,190px);height:auto;left:58%;top:22%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));transform:translateX(0) rotate(-6deg)}
+.vy-flame{transform-origin:58px 40px;animation:vyFlame .18s ease-in-out infinite alternate}
+@keyframes vyFlame{from{transform:scaleX(.82)}to{transform:scaleX(1.08)}}
+.vy-stage.idle .vy-ship{animation:vyBob 4.5s ease-in-out infinite}
+@keyframes vyBob{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(6px,-8px) rotate(-4deg)}}
+/* arrival: fly in from the left */
+.vy-stage.arrive .vy-ship{animation:vyArrive 1.6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vyArrive{from{transform:translate(-90vw,40px) rotate(4deg) scale(.7)}to{transform:translate(0,0) rotate(-6deg) scale(1)}}
+/* departure: burn off to the right */
+.vy-stage.depart .vy-ship{animation:vyDepart 1.1s cubic-bezier(.6,0,.9,.4) both}
+@keyframes vyDepart{from{transform:translate(0,0) rotate(-6deg)}to{transform:translate(70vw,-60px) rotate(-14deg) scale(.6)}}
+.vy-controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}
+.vy-pick{display:flex;gap:8px}
+.vy-pick button{font:600 15px/1 var(--body);color:var(--ink);background:transparent;border:1px solid var(--rule);padding:14px 16px;border-radius:2px;cursor:pointer}
+.vy-pick button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.vy-pick button:hover{border-color:var(--accent)}
+.vy-next{border:0;cursor:pointer}
+.vy-cap{font-size:14px;color:var(--muted);margin:10px 0 0}
+/* phones: a taller frame, and the words move under the picture */
+@media (max-width:700px){
+  .vy-stage{aspect-ratio:4/3}
+  .vy-stage::after{background:linear-gradient(0deg,rgba(4,8,14,.85) 0,rgba(4,8,14,.5) 45%,rgba(4,8,14,0) 75%)}
+  .vy-copy{max-width:none;right:16px}
+  .vy-ship{left:46%;top:12%}
+  .vy-controls{flex-direction:column;align-items:stretch}
+  .vy-pick button{flex:1}
+  .vy-next{text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  .vy-world{transition:none}
+  .vy-stage .vy-ship,.vy-flame{animation:none!important}
+}
