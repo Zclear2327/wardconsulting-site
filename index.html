@@ -346,9 +346,11 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
     <div class="vy-stage" data-world="1">
       <img class="vy-world w1" src="media/voyage/world-1.webp" width="2000" height="563" alt="World 1: an icy, rocky planet seen from orbit, with a large moon rising over a bright horizon.">
       <img class="vy-world w2" src="media/voyage/world-2.webp" width="2000" height="563" alt="World 2: a green world of moss-covered cliffs, with six waterfalls pouring into a lake under a pale moon." loading="lazy">
+      <canvas class="vy-warp" aria-hidden="true"></canvas>
       <div class="vy-ship" aria-hidden="true">
-        <span class="vy-flame f1"></span><span class="vy-flame f2"></span><span class="vy-flame f3"></span>
-        <img src="media/voyage/ship.webp" width="1200" height="225" alt="">
+        <div class="vy-part btop"><span class="vy-flame"></span><img src="media/voyage/ship-booster-1.webp" width="1200" height="225" alt=""></div>
+        <div class="vy-part core"><span class="vy-flame"></span><img src="media/voyage/ship-core.webp" width="1200" height="225" alt=""></div>
+        <div class="vy-part bbot"><span class="vy-flame"></span><img src="media/voyage/ship-booster-2.webp" width="1200" height="225" alt=""></div>
       </div>
       <div class="vy-copy">
         <p class="eyebrow vy-eyebrow">Our ship: Grow With AI &middot; Ward Consulting AI</p>
