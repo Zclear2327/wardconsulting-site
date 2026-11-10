@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.className="js"</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ward Consulting AI | AI Helpers for Business Owners</title>
 <meta name="description" content="New to AI? Ward Consulting AI gets you started with Grow With AI, then gives you tested AI helpers with plain-English setup.">
@@ -118,6 +119,17 @@ p{margin:0}
   .hero{min-height:max(620px,100svh)}
   .hero-copy{padding-top:120px}
   .hero .btns .btn{flex:1 1 100%}
+}
+
+/* ---------- hologram welcome: pops up after the film ---------- */
+.welcome{padding-block:clamp(56px,7vw,96px);border-top:1px solid var(--n-rule)}
+.welcome-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,72px);align-items:center}
+.welcome .bio video{box-shadow:0 0 0 1px rgba(159,227,208,.25),0 30px 80px -30px rgba(159,227,208,.35)}
+.welcome .bio .vw.tall{width:min(100%,calc(70svh * 9 / 16))}
+@media (max-width:860px){.welcome-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){
+  .js .holo-pop{opacity:0;transform:translateY(24px) scale(.94);filter:brightness(1.8) saturate(.4)}
+  .js .holo-pop.in{opacity:1;transform:none;filter:none;transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1),filter 1.2s ease}
 }
 
 /* ---------- proof strip ---------- */
@@ -316,6 +328,33 @@ p{margin:0}
           <button type="button" class="lf-sound" aria-pressed="false">Sound on</button>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="welcome" id="welcome" aria-labelledby="welcome-h">
+    <div class="wrap welcome-grid">
+      <div>
+        <p class="kicker">Incoming transmission</p>
+        <h2 class="h-lg" id="welcome-h">Welcome aboard.</h2>
+        <p class="lede" style="margin-top:18px">Chris Ward, founder of Ward Consulting AI and Grow With AI, says hi from the station.</p>
+      </div>
+      <figure class="bio holo-pop">
+        <div class="vw wide">
+          <video controls muted playsinline preload="metadata" poster="media/hologram/chris-welcome-16x9-poster.jpg" width="1280" height="720" aria-label="Hologram of Chris Ward: Hi, welcome to Ward Consulting AI. This is the ship that can take you to the stars. You choose where it goes.">
+            <source src="media/hologram/chris-welcome-16x9.mp4" type="video/mp4">
+            <a href="media/hologram/chris-welcome-16x9.mp4">Watch Chris Ward's 8-second welcome</a>.
+          </video>
+          <button class="snd" type="button" hidden>Play with sound</button>
+        </div>
+        <div class="vw tall">
+          <video controls muted playsinline preload="none" poster="media/hologram/chris-welcome-9x16-poster.jpg" width="720" height="1280" aria-label="Hologram of Chris Ward: Hi, welcome to Ward Consulting AI. This is the ship that can take you to the stars. You choose where it goes.">
+            <source src="media/hologram/chris-welcome-9x16.mp4" type="video/mp4">
+            <a href="media/hologram/chris-welcome-9x16.mp4">Watch Chris Ward's 8-second welcome</a>.
+          </video>
+          <button class="snd" type="button" hidden>Play with sound</button>
+        </div>
+        <figcaption>AI-generated hologram of Chris Ward, with an AI voice. Chris approved the words and the video.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -596,6 +635,13 @@ p{margin:0}
 </div>
 
 <script>
+// The hologram "pops up" the first time it scrolls into view.
+(function () {
+  var f = document.querySelector('.holo-pop'); if (!f) return;
+  if (!('IntersectionObserver' in window)) { f.classList.add('in'); return; }
+  var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { f.classList.add('in'); io.disconnect(); } }, { threshold: 0.25 });
+  io.observe(f);
+})();
 // Header turns solid once the visitor scrolls off the top of the film.
 (function () {
   var top = document.getElementById('top');
