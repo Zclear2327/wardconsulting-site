@@ -163,6 +163,7 @@ function render() {
 function go(n) { step += n; save(); render(); window.scrollTo(0, 0); }
 function next() { go(1); }
 function back() {
+  var cur = plan()[step]; if (cur && cur.k === "result" && (A.rs || 0) > 0) { A.rs = A.rs - 1; save(); render(); window.scrollTo(0, 0); return; }
   var P = plan(), prev = P[step - 1];
   if (prev && prev.k === "ask") meta.backs[prev.id] = (meta.backs[prev.id] || 0) + 1;
   go(-1);
@@ -449,95 +450,56 @@ function logFinish(tr, site) {
 }
 
 function result(h) {
-  var tr = track(), name = trainer(), dev = A.viewDevice || A.q4a || "windows";
-  logFinish(tr, "wardconsulting");
-  h.appendChild(el("p", { class: "who" }, "Your trainer: " + name + " · Your track: " + (tr === "grok" ? "Grok, the easy path" : "Claude, the power path")));
-  h.appendChild(el("h1", null, "Let's get your inbox sorted."));
-  var sw = el("button", { class: "back", type: "button" }, "Prefer " + (tr === "grok" ? "Claude, the power path" : "Grok, the easy path") + "? Switch");
-  sw.onclick = function () { A.switched = !A.switched; delete A.done; save(); render(); };
-  if (!GROK_ONLY) h.appendChild(sw);
-
-  var cost = el("div", { class: "note cost" });
-  cost.appendChild(el("p", null, COST[tr]));
-  cost.appendChild(el("p", { class: "help", style: "margin:0" }, "Prices as of October 2026. Check x.ai/pricing."));
-  h.appendChild(cost);
-
-  // device tabs
-  var keys = tr === "grok" ? [["phone", "Phone"], ["computer", "Mac or Windows"]] : [["mac", "Mac"], ["windows", "Windows"], ["phone", "Phone"]];
-  var cur = deviceKey(tr, dev === "computer" ? "mac" : dev);
-  if (tr === "grok" && dev !== "phone") cur = "computer";
-  var tabs = el("div", { class: "tabs", role: "tablist", "aria-label": "Steps for your device" });
-  keys.forEach(function (k) {
-    var b = el("button", { class: "tab", type: "button", role: "tab", "aria-selected": String(k[0] === cur) }, k[1]);
-    b.onclick = function () { A.viewDevice = k[0]; delete A.done; save(); render(); };
-    tabs.appendChild(b);
-  });
-  h.appendChild(tabs);
-  var DV = { grok: { phone: null, computer: null },
-    claude: { mac: ["claude-mac", "Claude on a Mac (26 seconds)"], windows: ["claude-windows", "Claude on Windows (22 seconds)"], phone: ["claude-phone", "Claude on your phone (16 seconds)"] } }[tr][cur];
-  if (DV) h.appendChild(vid(DV[0], "Video: " + DV[1]));
-  // TODO v6: re-record for free grok.com path.
-  // TODO RECOMMENDED DEFAULT 5 (v5): Grok clips hidden until Grok Bot re-record (see Grok-Bot-Rerecord-Scripts-v1). Restore the two DV entries to bring them back.
-  else if (tr === "grok") h.appendChild(el("p", { class: "help" }, "Video coming soon."));
-
-  if (TEAM_SEAT && tr === "grok") seatBox(h);
-  var list = STEPS[tr][cur], done = A.done || 0;
-  var ol = el("ol", { class: "isteps" });
-  list.forEach(function (s, i) {
-    var li = el("li", { class: i < done ? "ok" : i === done ? "now" : "later" });
-    li.appendChild(el("p", { class: "st" }, s[0]));
-    if (i === done) {
-      if (s[2]) { li.appendChild(el("a", { class: "linkbtn go", href: s[2], target: "_blank", rel: "noopener" }, "Open " + s[2].replace(/^https:\/\//, "") + " (new tab)")); }
-      li.appendChild(el("p", { class: "seeq" }, "Did you see " + s[1] + "?"));
-      var b = el("button", { class: "go", type: "button" }, "I did it");
-      b.onclick = function () { A.done = done + 1; save(); render(); var n = host().querySelector(".isteps .now .go:last-of-type,.isteps .now button"); if (n) n.focus(); };
-      li.appendChild(b);
-    } else if (i > done) { li.setAttribute("aria-disabled", "true"); }
-    ol.appendChild(li);
-  });
-  h.appendChild(ol);
-  if (tr === "grok" && cur === "computer") h.appendChild(el("p", { class: "help" }, "Grok doesn't need a desktop app; it runs in your browser at grok.com."));
-  if (TEAM_SEAT && tr === "grok") h.appendChild(el("p", { class: "help" }, "No invite after 1 business day? Check spam for an email from xAI, then email hello@wardconsulting.ai with the address you used."));
-  if (done >= list.length) h.appendChild(el("p", { class: "flash small", role: "status" }, "Nice work. Your free email helper is set up."));
-
-  var up = el("details", { class: "stuck" });
-  up.appendChild(el("summary", null, tr === "grok" ? "Optional upgrade: Grok Bot connects to your inbox (paid)" : "Optional: Claude Pro extras (paid)"));
-  up.appendChild(el("p", null, UPGRADE[tr]));
-  if (tr === "grok") up.appendChild(el("a", { href: "https://docs.x.ai/grok-bot/get-started", target: "_blank", rel: "noopener" }, "xAI's Grok Bot guide (new tab)"));
-  h.appendChild(up);
-
-  // copy box
-  h.appendChild(el("h2", null, "Your free email helper"));
-  h.appendChild(vid("first-win", "Video: your first win (23 seconds)"));
-  h.appendChild(el("p", { class: "help" }, "Copy this and paste it into " + (tr === "grok" ? "a new Grok chat." : "your Claude project instructions, or a new Claude chat.")));
+  // One step per screen (Chris, Nov 10: "do one step at a time so it does not get confusing").
+  var tr = track(), name = trainer(), r = A.rs || 0;
   var AG = { id: "Email-Inbox", name: "Email & Inbox Agent" };
   var txt = PROMPT[tr].split("[NAME]").join(name) + window.GWAIWalk.walkthrough(tr, AG);
-  var pre = el("pre", { class: "copybox", tabindex: "0", "aria-label": "Your free email helper text" }, txt);
-  h.appendChild(pre);
-  var row = el("div", { class: "nav" });
-  var cb = el("button", { class: "go", type: "button" }, "Copy my email helper");
-  cb.onclick = function () { copy(txt, pre, cb); };
-  row.appendChild(cb);
-  h.appendChild(row);
-  h.appendChild(window.GWAIWalk.openBlock({ tool: tr, agent: AG, text: PROMPT[tr].split("[NAME]").join(name), label: tr === "claude" && cur !== "phone" ? "Copy prompt and open Claude in your browser (or use the desktop app you installed)" : null }));
-
-  h.appendChild(el("p", { class: "help" }, "Stuck? Email hello@wardconsulting.ai and tell us what you see on screen. Please don't email us passwords or inbox screenshots."));
-  h.appendChild(el("h2", null, "Your 5 AI agents"));
-  h.appendChild(el("p", { class: "help" }, "Your Email & Inbox Agent is free. Starter adds 1 paid agent of your choice. Pro and Elite include all 4."));
-  var five = el("ol", { class: "rows" });
-  [["Email & Inbox Agent", "Free: yours now"], ["Customer Questions Agent", "Starter, Pro & Elite"], ["Sales & Follow-Up Agent", "Starter, Pro & Elite"], ["Daily Assistant", "Starter, Pro & Elite"], ["Content & Social Agent", "Starter, Pro & Elite"]].forEach(function (a, i) {
-    var li = el("li"); li.appendChild(el("span", { class: "num" }, String(i + 1)));
-    var d = el("div"); d.appendChild(el("h3", null, a[0])); d.appendChild(el("p", { class: "because" }, a[1]));
-    if (i > 0) { var u = el("a", { href: "https://zclear2327.github.io/grow-with-ai/members/", class: "unlocklink" }, "Members: unlock and copy it"); d.appendChild(u); }
-    li.appendChild(d); five.appendChild(li);
-  });
-  h.appendChild(five);
-  var nx = el("p", null, "Want more agents working for you? ");
-  var pk = el("a", { href: "https://zclear2327.github.io/grow-with-ai/packages/" }, "See the packages"); nx.appendChild(pk); nx.appendChild(document.createTextNode("."));
-  h.appendChild(nx);
-
-  capture(h, tr);
-
+  var SHOT = { mac: "On a Mac: press Shift + Command + 4, then drag a box around your inbox.",
+    windows: "On Windows: press the Windows key + Shift + S, then drag a box around your inbox.",
+    phone: "On a phone: press the side button and volume up together." }[A.q4a] || "On a Mac: Shift + Command + 4. On Windows: Windows key + Shift + S. On a phone: side button + volume up.";
+  var GROK = "https://grok.com";
+  var S = [
+    { h: "Open Grok.", p: "Grok is the free AI app your helper runs in. Tap the button. It opens in a new tab, so this page stays here.", link: [GROK, "Open grok.com"], q: "Do you see Grok's page?" },
+    { h: "Sign in, or make a free account.", p: "Click Sign up or Log in on Grok's page. You type your own password and codes there. We never see them.", link: [GROK, "Open grok.com again"], q: "Are you signed in and looking at a chat box?" },
+    { h: "Copy your email helper.", p: "Tap the button. It copies your helper so you can paste it into Grok.", copy: true, q: "Did the button say Copied?" },
+    { h: "Paste it into Grok and press send.", p: "Go back to the Grok tab. Click the chat box, paste (Ctrl + V, or Command + V on a Mac, or press and hold on a phone), then press send.", link: [GROK, "Go to grok.com"], q: "Did " + name + " say “Hi, I'm here”?" },
+    { h: "Send a screenshot of your inbox.", p: "When " + name + " asks, take a screenshot of your inbox list and add it to the Grok chat. " + SHOT, q: "Did " + name + " sort your inbox into groups?" }
+  ];
+  var bar = el("p", { class: "voice" }, r < S.length ? "Step " + (r + 1) + " of " + S.length : "All done");
+  h.appendChild(bar);
+  if (r < S.length) {
+    var st = S[r];
+    h.appendChild(el("h1", null, st.h));
+    h.appendChild(el("p", null, st.p));
+    if (r === 0) h.appendChild(el("p", { class: "help" }, "It's free. Grok's free plan is all you need for this."));
+    if (st.link) { var a = el("a", { class: "linkbtn go", href: st.link[0], target: "_blank", rel: "noopener" }, st.link[1] + " (new tab)"); h.appendChild(a); }
+    if (st.copy) {
+      var pre = el("pre", { class: "copybox", tabindex: "0", "aria-label": "Your free email helper text" }, txt);
+      var cb = el("button", { class: "go", type: "button" }, "Copy my email helper");
+      cb.onclick = function () { copy(txt, pre, cb); };
+      h.appendChild(cb);
+      var see = el("details", { class: "stuck" }); see.appendChild(el("summary", null, "See what you're copying")); see.appendChild(pre); h.appendChild(see);
+    }
+    h.appendChild(el("p", { class: "seeq" }, st.q));
+    var row = el("div", { class: "nav" });
+    var ok = el("button", { class: "go", type: "button" }, "Yes, next step");
+    ok.onclick = function () { A.rs = r + 1; save(); render(); window.scrollTo(0, 0); };
+    row.appendChild(ok); h.appendChild(row);
+    h.appendChild(el("p", { class: "help" }, "Stuck? Email hello@wardconsulting.ai and tell us which step you're on. Never send us passwords."));
+    return;
+  }
+  // finished
+  logFinish(tr, "wardconsulting");
+  h.appendChild(el("h1", null, "Nice work. Your free email helper is set up."));
+  h.appendChild(el("p", null, name + " will keep helping in that Grok chat. Come back to it any time."));
+  h.appendChild(el("p", null, "One next step: the free training shows you what else your helper can do, one step at a time."));
+  h.appendChild(el("a", { class: "linkbtn go", href: "https://zclear2327.github.io/grow-with-ai/train/grok/" }, "Start the free Grok training"));
+  var more = el("details", { class: "stuck" }); more.appendChild(el("summary", null, "Want more helpers? See the plans"));
+  more.appendChild(el("p", null, "Starter ($29.99 a month) adds 1 paid agent. Pro ($99.99) adds all 4. Cancel anytime."));
+  more.appendChild(el("a", { href: "https://zclear2327.github.io/grow-with-ai/packages/" }, "See the plans"));
+  h.appendChild(more);
+  var mail = el("details", { class: "stuck" }); mail.appendChild(el("summary", null, "Email me these steps"));
+  capture(mail, tr); h.appendChild(mail);
   var nav = el("div", { class: "nav" });
   var rs = el("button", { class: "back", type: "button" }, "Start over");
   rs.onclick = function () { if (!confirm("Clear your answers and start again?")) return; clearAll(); render(); };
