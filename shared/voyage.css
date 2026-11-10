@@ -71,3 +71,14 @@ section.voyage{padding-block:8px 40px;border-top:0}
   .vy-part{transition:none}
   .vy-warp{display:none}
 }
+
+/* launch film at the top of the homepage */
+.launchfilm{margin:8px 0 28px}
+.lf-frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#05080F;border-radius:4px}
+.lf-tall{display:none;width:min(100%,calc(80svh * 9 / 16));margin-inline:auto}
+.lf-tall video{aspect-ratio:9/16}
+@media (max-width:600px){.lf-wide{display:none}.lf-tall{display:block}}
+.lf-bar{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.lf-bar button{font:600 15px/1 var(--body);padding:13px 16px;border-radius:2px;cursor:pointer;border:1px solid var(--rule);background:transparent;color:var(--ink)}
+.lf-bar .lf-play{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.launchfilm figcaption{font-size:14px;color:var(--muted);margin-top:8px}

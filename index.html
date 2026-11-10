@@ -339,6 +339,28 @@ footer{padding-block:28px 40px;border-top:1px solid var(--rule);font-size:13px;c
     </nav>
   </header>
 
+  <figure class="launchfilm" id="launchfilm" aria-label="Launch film: our ship, from the launch pad to a new world">
+    <div class="lf-frame lf-wide">
+      <video muted playsinline preload="metadata" poster="media/launch/clear-for-launch-16x9-poster.jpg" width="1920" height="1080"
+        data-list="media/launch/clear-for-launch-16x9-web.mp4 media/launch/launch-16x9-web.mp4"
+        aria-label="AI-generated film: the crew suits up and the rocket launches, drops its boosters, and jumps to a green world">
+        <source src="media/launch/clear-for-launch-16x9-web.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="lf-frame lf-tall">
+      <video muted playsinline preload="none" poster="media/launch/clear-for-launch-9x16-poster.jpg" width="1080" height="1920"
+        data-list="media/launch/clear-for-launch-9x16-web.mp4 media/launch/launch-9x16-web.mp4"
+        aria-label="AI-generated film: the crew suits up and the rocket launches, drops its boosters, and jumps to a green world">
+        <source src="media/launch/clear-for-launch-9x16-web.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="lf-bar">
+      <button type="button" class="lf-play" aria-pressed="false">Play the launch</button>
+      <button type="button" class="lf-sound" aria-pressed="false">Sound on</button>
+    </div>
+    <figcaption>AI-generated dramatization. Our ship, from the launch pad to a new world.</figcaption>
+  </figure>
+
   <p class="brandline">Ward Consulting <span>AI</span><small>Home of Grow With AI. We set you up with AI. Then you get AI agents that each do part of your work for you.</small></p>
 
   <section class="voyage" id="voyage" aria-labelledby="voyage-h">
@@ -673,6 +695,7 @@ document.getElementById('copy').addEventListener('click', function () {
 <script src="https://zclear2327.github.io/grow-with-ai/affiliates/ref.js" defer></script>
 <footer class="legalfoot"><p>&copy; 2026 Ward Consulting AI. All rights reserved. Grow With AI, Sam and Travis are trademarks of Ward Consulting AI. The setup flow, trainer scripts and prompts are proprietary and protected by copyright. Not affiliated with xAI, X, Anthropic, Google or Microsoft. Nothing here promises a specific result. Available in English in the US and Canada, except Quebec for now (no French version yet). &middot; <a href="https://zclear2327.github.io/grow-with-ai/teams/">Teams</a> &middot; <a href="https://zclear2327.github.io/grow-with-ai/partners/">Partners</a> &middot; <a href="terms/">Terms</a> &middot; <a href="privacy/">Privacy</a> &middot; <a href="refund/">Refunds</a> &middot; <a href="disclosures/">Disclosures</a> &middot; <a href="terms/#copyright">Copyright</a> &middot; Ward Consulting AI &middot; 2680 Commerce Way, Ogden, UT 84401</p></footer>
 <script src="shared/voyage.js"></script>
+<script src="shared/film.js"></script>
 <script src="./shared/count.js"></script>
 </body>
 </html>
