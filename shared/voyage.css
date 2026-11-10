@@ -15,12 +15,12 @@ section.voyage{padding-block:8px 48px;border-top:0}
 .vy-where{margin:12px 0 0;font-size:17px;color:#DCE7E2}
 .vy-label{display:inline-block;font:700 12.5px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#05080F;background:#9FE3D0;padding:6px 8px;border-radius:2px;margin-right:6px;vertical-align:2px}
 /* the ship: a rendered side view of our own rocket; engines face left, flames are drawn in CSS */
-.vy-ship{position:absolute;z-index:2;width:clamp(200px,36vw,480px);left:46%;top:24%;filter:drop-shadow(0 8px 18px rgba(0,0,0,.55));transform:translateX(0) rotate(-6deg)}
+.vy-ship{position:absolute;z-index:2;width:clamp(200px,34vw,440px);left:52%;top:6%;filter:drop-shadow(0 8px 18px rgba(0,0,0,.55));transform:translateX(0) rotate(-6deg)}
 .vy-ship img{display:block;width:100%;height:auto;position:relative;z-index:1}
 .vy-flame{position:absolute;z-index:0;right:calc(100% - 3%);width:22%;height:15%;border-radius:50%;
   background:radial-gradient(ellipse at 100% 50%,#FFFFFF 0,#FFF1C9 18%,#FFC062 42%,rgba(255,122,61,.55) 64%,rgba(255,122,61,0) 78%);
   transform-origin:100% 50%;animation:vyFlame .16s ease-in-out infinite alternate}
-.vy-flame.f1{top:VAR1}.vy-flame.f2{top:VAR2;width:26%}.vy-flame.f3{top:VAR3}
+.vy-flame.f1{top:15.5%}.vy-flame.f2{top:42.5%;width:26%}.vy-flame.f3{top:68.5%}
 @keyframes vyFlame{from{transform:scaleX(.85) scaleY(.92)}to{transform:scaleX(1.06) scaleY(1)}}
 .vy-stage.idle .vy-ship{animation:vyBob 4.5s ease-in-out infinite}
 @keyframes vyBob{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(6px,-8px) rotate(-4deg)}}
