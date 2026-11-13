@@ -472,7 +472,7 @@ function deviceKey(tr, dev) {
 }
 
 // Counts a finished setup once per browser: a GoatCounter event (when on) and a short note to the form inbox.
-// No email, name or answers are sent; only the track, device, trainer and site.
+// The form note has no email, name or answers; only the track, device, trainer and site.
 function logFinish(tr, site) {
   if (meta.finishLogged) return;
   meta.finishLogged = Date.now(); save();
@@ -485,6 +485,27 @@ function logFinish(tr, site) {
     b.append("_subject", "Setup finished (" + site + ", " + tr + ", " + (A.q4a || "device not given") + ")");
     b.append("_template", "table"); b.append("_honey", "");
     fetch(CFG.form_endpoint, { method: "POST", body: b, headers: { Accept: "application/json" } }).catch(function () {});
+  } catch (e) {}
+  postAnon("questionnaire_finished"); // trainer name, page and time only; no name, email or answers
+}
+
+// Anonymous note to our events server: helper name, page and time. Never name, email or answers.
+// A down server must not affect the page.
+function postAnon(eventName) {
+  try {
+    fetch("https://agents.wardconsulting.ai/events", {
+      method: "POST",
+      keepalive: true,
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        site: "ward",
+        event: eventName,
+        helper: trainer(),
+        page: location.pathname,
+        timestamp: new Date().toISOString()
+      })
+    }).catch(function () {});
   } catch (e) {}
 }
 
@@ -613,7 +634,14 @@ function result(h) {
 }
 
 function copy(txt, pre, btn) {
-  var ok = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy my email helper"; }, 2000); };
+  var ok = function () {
+    btn.textContent = "Copied";
+    setTimeout(function () { btn.textContent = "Copy my email helper"; }, 2000);
+    try {
+      if (window.wcCount) window.wcCount("helper-copied"); else (window.__wcq = window.__wcq || []).push("helper-copied");
+      postAnon("helper_copied");
+    } catch (e) {}
+  };
   var fallback = function () { var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r);
     try { if (document.execCommand("copy")) { ok(); return; } } catch (e) {} btn.textContent = "Selected: press Ctrl+C (Cmd+C on a Mac)"; };
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fallback); else fallback();
