@@ -601,7 +601,7 @@ function result(h) {
   h.appendChild(shipFilm("mission-3-arrival-family", "You made the jump"));
   h.appendChild(el("a", { class: "linkbtn go", href: "https://zclear2327.github.io/grow-with-ai/train/grok/" }, "Start the free Grok training"));
   var more = el("details", { class: "stuck" }); more.appendChild(el("summary", null, "Want more helpers? See the plans"));
-  more.appendChild(el("p", null, "Starter ($29.99 a month) adds 1 paid agent. Pro ($99.99) adds all 4. Cancel anytime."));
+  more.appendChild(el("p", null, "Starter ($99 a month) adds 1 paid agent. Pro ($99.99) adds all 4. Cancel anytime."));
   more.appendChild(el("a", { href: "https://zclear2327.github.io/grow-with-ai/packages/" }, "See the plans"));
   h.appendChild(more);
   var mail = el("details", { class: "stuck" }); mail.appendChild(el("summary", null, "Email me these steps"));
